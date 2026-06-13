@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Client Data Requirements — SDG Design Group Website</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  body{
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    background:#f5f5f5;
+    color:#1a1a1a;
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  .page{
+    width:210mm;
+    min-height:297mm;
+    background:#fff;
+    margin:24px auto;
+    padding:18mm 18mm 16mm;
+    box-shadow:0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  /* HEADER */
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding-bottom:14px;
+    border-bottom:2px solid #1a1a1a;
+    margin-bottom:22px;
+  }
+  .header-left h1{
+    font-family:'Playfair Display',serif;
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    color:#1a1a1a;
+    line-height:1.2;
+  }
+  .header-left p{
+    font-size:11px;
+    color:#666;
+    margin-top:4px;
+    letter-spacing:0.3px;
+  }
+  .header-right{
+    text-align:right;
+    font-size:10px;
+    color:#888;
+    line-height:1.8;
+  }
+  .header-right strong{
+    font-weight:500;
+    color:#1a1a1a;
+    display:block;
+    font-size:11px;
+  }
+
+  /* INTRO */
+  .intro{
+    background:#f8f8f8;
+    border-left:3px solid #1a1a1a;
+    padding:10px 14px;
+    margin-bottom:22px;
+    font-size:11.5px;
+    color:#444;
+    line-height:1.7;
+  }
+
+  /* SECTION */
+  .section{
+    margin-bottom:20px;
+  }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .section-badge{
+    width:10px;height:10px;border-radius:50%;flex-shrink:0;
+  }
+  .red   .section-badge{background:#c0392b}
+  .amber .section-badge{background:#d68910}
+  .green .section-badge{background:#1e8449}
+
+  .section-title h2{
+    font-family:'Playfair Display',serif;
+    font-size:13px;
+    font-weight:600;
+    color:#1a1a1a;
+    letter-spacing:0.3px;
+  }
+  .priority-label{
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:2px 8px;
+    border-radius:2px;
+    margin-left:auto;
+  }
+  .red   .priority-label{background:#fdecea;color:#c0392b}
+  .amber .priority-label{background:#fef9e7;color:#b7770d}
+  .green .priority-label{background:#eafaf1;color:#1e8449}
+
+  /* TABLE */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11.5px;
+  }
+  thead tr{
+    background:#1a1a1a;
+    color:#fff;
+  }
+  thead th{
+    padding:7px 10px;
+    text-align:left;
+    font-weight:500;
+    font-size:10px;
+    letter-spacing:0.8px;
+    text-transform:uppercase;
+  }
+  tbody tr{
+    border-bottom:1px solid #ebebeb;
+  }
+  tbody tr:nth-child(even){background:#fafafa}
+  tbody tr:hover{background:#f0f0f0}
+  tbody td{
+    padding:7px 10px;
+    vertical-align:top;
+    color:#2c2c2c;
+  }
+  .num{
+    font-weight:600;
+    color:#888;
+    width:28px;
+    font-size:10px;
+  }
+  .field{
+    font-weight:500;
+    color:#1a1a1a;
+    width:42%;
+  }
+  .usage{color:#555;font-size:11px}
+  .placeholder{
+    color:#999;
+    font-size:10.5px;
+    font-style:italic;
+  }
+
+  /* SIGNATURE BLOCK */
+  .sign-block{
+    margin-top:28px;
+    padding-top:16px;
+    border-top:1px solid #ddd;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:20px;
+    font-size:11px;
+  }
+  .sign-item p{
+    color:#888;
+    font-size:10px;
+    margin-bottom:24px;
+  }
+  .sign-item .line{
+    border-top:1px solid #bbb;
+    padding-top:5px;
+    color:#555;
+    font-size:10px;
+  }
+
+  /* FOOTER BAR */
+  .doc-footer{
+    margin-top:22px;
+    padding-top:10px;
+    border-top:1px solid #e0e0e0;
+    display:flex;
+    justify-content:space-between;
+    font-size:9.5px;
+    color:#aaa;
+  }
+
+  /* PRINT */
+  @media print{
+    body{background:#fff}
+    .page{
+      margin:0;
+      box-shadow:none;
+      padding:12mm 14mm 12mm;
+    }
+    .no-print{display:none}
+    thead tr{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .section-badge{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+  }
+
+  /* PRINT BUTTON */
+  .print-btn{
+    display:block;
+    width:210mm;
+    margin:0 auto 16px;
+    text-align:right;
+  }
+  .print-btn button{
+    background:#1a1a1a;
+    color:#fff;
+    border:none;
+    padding:10px 24px;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:1px;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .print-btn button:hover{background:#333}
+</style>
+</head>
+<body>
+
+<div class="print-btn no-print">
+  <button onclick="window.print()">&#128438; Save as PDF (Print → Save as PDF)</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Client Data Requirements</h1>
+      <p>SDG Design Group — Official Website · Data Collection Checklist</p>
+    </div>
+    <div class="header-right">
+      <strong>Prepared by</strong>
+      SDG Web Team<br/>
+      <strong>Date</strong>
+      June 2026<br/>
+      <strong>Version</strong>
+      1.0
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    The following checklist identifies all data, content, and assets required from the client to complete and launch the SDG Design Group website. Items are grouped by priority. <strong>Red items must be provided before the site can go live.</strong> Amber items complete all inner pages. Green items are final polish.
+  </div>
+
+
+  <!-- SECTION 1 -->
+  <div class="section red">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>1 &nbsp;Company Identity &amp; Branding</h2>
+      <span class="priority-label">Critical</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">01</td>
+          <td class="field">Exact legal / brand company name</td>
+          <td class="usage">Nav logo, footer, browser tab, all headings</td>
+          <td class="placeholder">"SDG Design Group"</td>
+        </tr>
+        <tr>
+          <td class="num">02</td>
+          <td class="field">Founder &amp; CEO full name(s)</td>
+          <td class="usage">About section, footer brand copy, team page</td>
+          <td class="placeholder">"our Founder &amp; CEO"</td>
+        </tr>
+        <tr>
+          <td class="num">03</td>
+          <td class="field">Year established / founding year</td>
+          <td class="usage">Hero badge "26 Years", studio Est. year, stats bar</td>
+          <td class="placeholder">"1999 / 26 years"</td>
+        </tr>
+        <tr>
+          <td class="num">04</td>
+          <td class="field">Final logo file (SVG or high-res PNG, transparent bg)</td>
+          <td class="usage">Top navigation bar, footer brand area</td>
+          <td class="placeholder">SDG LOGO.png (unverified display)</td>
+        </tr>
+        <tr>
+          <td class="num">05</td>
+          <td class="field">Tagline / brand statement (1 line)</td>
+          <td class="usage">Hero section subtitle, SEO meta description</td>
+          <td class="placeholder">None set</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 2 -->
+  <div class="section red">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>2 &nbsp;Key Numbers &amp; Statistics</h2>
+      <span class="priority-label">Critical</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">06</td>
+          <td class="field">Total projects completed</td>
+          <td class="usage">Stats bar — "Projects Completed"</td>
+          <td class="placeholder">"300+"</td>
+        </tr>
+        <tr>
+          <td class="num">07</td>
+          <td class="field">Total staff / team size</td>
+          <td class="usage">Stats bar — "Global Staff"</td>
+          <td class="placeholder">"80+"</td>
+        </tr>
+        <tr>
+          <td class="num">08</td>
+          <td class="field">Number of studio locations</td>
+          <td class="usage">Stats bar — "International Studios"</td>
+          <td class="placeholder">"4"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 3 -->
+  <div class="section red">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>3 &nbsp;Contact Information</h2>
+      <span class="priority-label">Critical</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">09</td>
+          <td class="field">Delhi office — full address</td>
+          <td class="usage">Contact section, office addresses grid</td>
+          <td class="placeholder">B-12, Connaught Place (fictitious)</td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td class="field">Mumbai office — full address</td>
+          <td class="usage">Contact section, office addresses grid</td>
+          <td class="placeholder">BKC Level 4 (fictitious)</td>
+        </tr>
+        <tr>
+          <td class="num">11</td>
+          <td class="field">Bangalore office — full address</td>
+          <td class="usage">Contact section, office addresses grid</td>
+          <td class="placeholder">UB City (fictitious)</td>
+        </tr>
+        <tr>
+          <td class="num">12</td>
+          <td class="field">Hyderabad office — full address</td>
+          <td class="usage">Contact section, office addresses grid</td>
+          <td class="placeholder">HITEC City (fictitious)</td>
+        </tr>
+        <tr>
+          <td class="num">13</td>
+          <td class="field">Phone number(s) — per studio or general</td>
+          <td class="usage">Contact section (currently not shown at all)</td>
+          <td class="placeholder">Not present on site</td>
+        </tr>
+        <tr>
+          <td class="num">14</td>
+          <td class="field">General enquiry email address</td>
+          <td class="usage">Contact section + form submission destination</td>
+          <td class="placeholder">Not present — form goes nowhere</td>
+        </tr>
+        <tr>
+          <td class="num">15</td>
+          <td class="field">Form backend / email service details</td>
+          <td class="usage">Contact form — where enquiries are sent</td>
+          <td class="placeholder">Form disabled (onsubmit="return false")</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 4 -->
+  <div class="section red">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>4 &nbsp;Social Media</h2>
+      <span class="priority-label">Critical</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">16</td>
+          <td class="field">Instagram handle &amp; profile URL</td>
+          <td class="usage">Instagram strip heading + "Follow us" link</td>
+          <td class="placeholder">@sdg.designgroup / instagram.com</td>
+        </tr>
+        <tr>
+          <td class="num">17</td>
+          <td class="field">LinkedIn company page URL</td>
+          <td class="usage">Footer social icon — "in"</td>
+          <td class="placeholder">Links to "#"</td>
+        </tr>
+        <tr>
+          <td class="num">18</td>
+          <td class="field">Facebook page URL</td>
+          <td class="usage">Footer social icon — "fb"</td>
+          <td class="placeholder">Links to "#"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 5 -->
+  <div class="section amber">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>5 &nbsp;Team &amp; About Pages</h2>
+      <span class="priority-label">Important</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">19</td>
+          <td class="field">Team members — name, role, photo, short bio</td>
+          <td class="usage">"The People" dropdown page (currently "#")</td>
+          <td class="placeholder">Page does not exist</td>
+        </tr>
+        <tr>
+          <td class="num">20</td>
+          <td class="field">Awards list — award name, year, project</td>
+          <td class="usage">"Awards" dropdown page (currently "#")</td>
+          <td class="placeholder">Page does not exist</td>
+        </tr>
+        <tr>
+          <td class="num">21</td>
+          <td class="field">Major clients / client logos</td>
+          <td class="usage">"Our Clients" dropdown page (currently "#")</td>
+          <td class="placeholder">Page does not exist</td>
+        </tr>
+        <tr>
+          <td class="num">22</td>
+          <td class="field">Brand description / portfolio brands</td>
+          <td class="usage">"Brands" dropdown page (currently "#")</td>
+          <td class="placeholder">Page does not exist</td>
+        </tr>
+        <tr>
+          <td class="num">23</td>
+          <td class="field">Real company story / "The Journey" narrative</td>
+          <td class="usage">"The Journey" section on homepage</td>
+          <td class="placeholder">Generic text written by developer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 6 -->
+  <div class="section amber">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>6 &nbsp;Studio / Office Photos</h2>
+      <span class="priority-label">Important</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">24</td>
+          <td class="field">Delhi studio interior / exterior photo</td>
+          <td class="usage">"Our Studios" grid — Studio 1</td>
+          <td class="placeholder">Uses project concept image</td>
+        </tr>
+        <tr>
+          <td class="num">25</td>
+          <td class="field">Mumbai studio interior / exterior photo</td>
+          <td class="usage">"Our Studios" grid — Studio 2</td>
+          <td class="placeholder">Uses project concept image</td>
+        </tr>
+        <tr>
+          <td class="num">26</td>
+          <td class="field">Bangalore studio interior / exterior photo</td>
+          <td class="usage">"Our Studios" grid — Studio 3</td>
+          <td class="placeholder">Uses project concept image</td>
+        </tr>
+        <tr>
+          <td class="num">27</td>
+          <td class="field">Hyderabad studio interior / exterior photo</td>
+          <td class="usage">"Our Studios" grid — Studio 4</td>
+          <td class="placeholder">Uses project concept image</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 7 -->
+  <div class="section amber">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>7 &nbsp;Careers</h2>
+      <span class="priority-label">Important</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">28</td>
+          <td class="field">Open job positions (title, description, location, type)</td>
+          <td class="usage">"Careers" nav link — no page exists</td>
+          <td class="placeholder">Nav link points to footer anchor only</td>
+        </tr>
+        <tr>
+          <td class="num">29</td>
+          <td class="field">Careers email / application process</td>
+          <td class="usage">Careers page — how to apply</td>
+          <td class="placeholder">Not present</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SECTION 8 -->
+  <div class="section green">
+    <div class="section-title">
+      <span class="section-badge"></span>
+      <h2>8 &nbsp;Final Polish</h2>
+      <span class="priority-label">Nice to Have</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data Required</th>
+          <th>Where Used on Site</th>
+          <th>Current Placeholder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">30</td>
+          <td class="field">6 real Instagram post images (square format)</td>
+          <td class="usage">Instagram strip grid — 6 thumbnail photos</td>
+          <td class="placeholder">Uses project concept images</td>
+        </tr>
+        <tr>
+          <td class="num">31</td>
+          <td class="field">Press / media coverage articles or links</td>
+          <td class="usage">Footer "Press" link — no page exists</td>
+          <td class="placeholder">Links to "#"</td>
+        </tr>
+        <tr>
+          <td class="num">32</td>
+          <td class="field">Magazine publications / digital editions</td>
+          <td class="usage">Footer "Magazines" link — no page exists</td>
+          <td class="placeholder">Links to "#"</td>
+        </tr>
+        <tr>
+          <td class="num">33</td>
+          <td class="field">Correct copyright year</td>
+          <td class="usage">Footer bottom bar</td>
+          <td class="placeholder">"© 2025" (site year is 2026)</td>
+        </tr>
+        <tr>
+          <td class="num">34</td>
+          <td class="field">SEO meta description (1–2 sentences)</td>
+          <td class="usage">Google search snippet, social share previews</td>
+          <td class="placeholder">Missing from &lt;head&gt;</td>
+        </tr>
+        <tr>
+          <td class="num">35</td>
+          <td class="field">Favicon / browser tab icon</td>
+          <td class="usage">Browser tab, bookmarks, mobile home screen</td>
+          <td class="placeholder">No favicon set</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- SIGNATURE BLOCK -->
+  <div class="sign-block">
+    <div class="sign-item">
+      <p>Client Signature &amp; Date</p>
+      <div class="line">Name / Date</div>
+    </div>
+    <div class="sign-item">
+      <p>Designer Signature &amp; Date</p>
+      <div class="line">Name / Date</div>
+    </div>
+    <div class="sign-item">
+      <p>Target Launch Date</p>
+      <div class="line">Date</div>
+    </div>
+  </div>
+
+  <!-- DOC FOOTER -->
+  <div class="doc-footer">
+    <span>SDG Design Group — Website Development · Confidential</span>
+    <span>35 items total &nbsp;·&nbsp; 18 Critical &nbsp;·&nbsp; 11 Important &nbsp;·&nbsp; 6 Polish</span>
+  </div>
+
+</div>
+
+<script>
+  // Auto-trigger print dialog if ?print=1 in URL
+  if(window.location.search.includes('print=1')) window.print();
+</script>
+</body>
+</html>

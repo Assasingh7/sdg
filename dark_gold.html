@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shokeen Design Group - Architecture & Interior Design Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&family=Raleway+Dots&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & ROOT ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#121212;
+  --white:#F2F2F2;
+  --offwhite:#E6E6E6;
+  --grey:#9A9A9A;
+  --darkgrey:#4A4A4A;
+  --gold:#7A7A7A;
+  --gold2:#AAAAAA;
+  --line:rgba(120,120,120,0.22);
+  --linelight:rgba(255,255,255,0.10);
+  --nav-h:76px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--white);
+  color:var(--black);
+  font-family:'Raleway',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+
+/* ── SPLIT NAV ── */
+.nav-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;
+  align-items:center;
+  padding:0 48px;
+  gap:0;
+  background:rgba(18,18,18,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(180,180,180,0.12);
+  transition:background .4s;
+}
+.nav-wrap.scrolled{background:rgba(18,18,18,1)}
+.nav-left{display:none}
+.nav-right{
+  display:flex;align-items:center;
+  list-style:none;
+  gap:0;
+  margin-left:auto;
+}
+.nav-right li a{
+  display:block;padding:10px 18px;
+  font-size:10.5px;letter-spacing:2.8px;text-transform:uppercase;
+  color:rgba(248,246,242,0.65);font-weight:400;
+  transition:color .3s;position:relative;
+}
+.nav-right li a:hover{color:#ffffff}
+/* dropdown */
+.has-drop{position:relative}
+.has-drop > a::after{content:'▾';margin-left:5px;font-size:8px;opacity:.5}
+.drop-menu{
+  position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  background:rgba(18,18,18,0.98);
+  border:1px solid rgba(180,180,180,0.12);
+  min-width:180px;
+  opacity:0;pointer-events:none;
+  transform:translateX(-50%) translateY(8px);
+  transition:opacity .28s,transform .28s;
+  list-style:none;
+}
+.has-drop:hover .drop-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.drop-menu li a{
+  display:block;padding:12px 22px;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(248,246,242,0.6);border-bottom:1px solid var(--linelight);
+  transition:color .2s,background .2s;
+}
+.drop-menu li:last-child a{border-bottom:none}
+.drop-menu li a:hover{color:#ffffff;background:rgba(255,255,255,0.06)}
+/* logo */
+.nav-logo{
+  display:flex;align-items:center;
+  padding:0 40px 0 0;
+  flex-shrink:0;
+}
+.nav-logo img{height:42px;width:auto;display:block;object-fit:contain}
+
+/* mobile nav toggle */
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:12px;cursor:pointer}
+.nav-toggle span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
+
+/* ── HERO — 3 PANEL SPLIT ── */
+.hero{
+  height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding-top:var(--nav-h);
+  position:relative;
+  overflow:hidden;
+}
+.hero-panel{
+  position:relative;overflow:hidden;cursor:pointer;
+}
+.hero-panel-bg{
+  position:absolute;inset:0;
+  transition:transform .9s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.hero-panel:hover .hero-panel-bg{transform:scale(1.06)}
+.hp1 .hero-panel-bg{
+  background:url('images/hero1.jpg') center/cover no-repeat;
+}
+.hp2 .hero-panel-bg{
+  background:url('images/hero2.jpg') center/cover no-repeat;
+}
+.hp3 .hero-panel-bg{
+  background:url('images/hero3.jpg') center/cover no-repeat;
+}
+.hero-panel-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.15) 60%);
+  transition:background .5s;
+}
+.hero-panel:hover .hero-panel-overlay{
+  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 60%);
+}
+.hero-panel-ph{display:none}
+/* vertical dividers */
+.hero-panel:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:15%;bottom:15%;
+  width:1px;background:rgba(255,255,255,0.1);z-index:2;
+}
+.hero-panel-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:0 38px 48px;z-index:3;
+}
+.hero-panel-label{
+  font-size:9px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:12px;
+  font-weight:400;
+}
+.hero-panel-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,2.8vw,38px);font-weight:400;
+  color:var(--white);line-height:1.15;
+  margin-bottom:18px;letter-spacing:0.5px;
+}
+.hero-panel-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:9.5px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(248,246,242,0.6);font-weight:400;
+  border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:3px;
+  transition:color .3s,border-color .3s;
+}
+.hero-panel:hover .hero-panel-link{color:var(--gold);border-bottom-color:var(--gold)}
+/* hero center badge */
+.hero-badge{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:10;pointer-events:none;
+  text-align:center;
+}
+.hero-badge-ring{
+  width:110px;height:110px;border-radius:50%;
+  border:1px solid rgba(150,150,150,0.35);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto;
+}
+.hero-badge-inner{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(18,18,18,0.85);
+  border:1px solid rgba(150,150,150,0.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;
+}
+.hero-badge-inner .yr{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:400;color:var(--gold);line-height:1;
+}
+.hero-badge-inner .yr-lbl{
+  font-size:6.5px;letter-spacing:2.5px;color:rgba(248,246,242,0.5);
+  text-transform:uppercase;
+}
+
+/* ── MAGAZINE STRIP ── */
+.mag-strip{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:520px;
+  border-top:1px solid rgba(17,16,16,0.08);
+}
+.mag-left{
+  background:var(--black);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:70px 70px 70px 80px;
+  position:relative;overflow:hidden;
+}
+.mag-left::before{
+  content:'9';
+  position:absolute;right:-30px;top:50%;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;
+  font-size:220px;font-weight:600;
+  color:rgba(140,140,140,0.07);line-height:1;pointer-events:none;
+}
+.mag-eyebrow{
+  font-size:9px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:18px;font-weight:400;
+}
+.mag-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,2.8vw,40px);font-weight:400;
+  color:var(--white);line-height:1.25;
+  margin-bottom:22px;
+}
+.mag-body{
+  font-size:13px;line-height:1.95;
+  color:rgba(248,246,242,0.5);max-width:420px;
+  font-weight:300;
+}
+.mag-cta{
+  margin-top:32px;
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:9.5px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);font-weight:400;
+  border-bottom:1px solid rgba(140,140,140,0.35);padding-bottom:4px;
+  transition:gap .3s,border-color .3s;
+}
+.mag-cta:hover{gap:20px;border-color:var(--gold)}
+.mag-right{
+  background:var(--offwhite);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:48px;
+}
+.mag-cover{
+  width:100%;max-width:320px;
+  aspect-ratio:3/4;
+  background:var(--black);
+  box-shadow:0 40px 80px rgba(0,0,0,0.2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.mag-cover-inner{
+  position:absolute;inset:0;
+  background:url('images/mag-cover.jpg') center/cover no-repeat;
+}
+.mag-cover-ph{display:none}
+.mag-cover-label{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  background:rgba(17,16,16,0.9);padding:20px 24px;
+}
+.mag-cover-label h4{
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-weight:400;color:var(--white);
+  margin-bottom:4px;
+}
+.mag-cover-label p{
+  font-size:9.5px;letter-spacing:2px;color:var(--gold);
+  text-transform:uppercase;font-weight:400;
+}
+
+/* ── JOURNEY SECTION ── */
+.journey{
+  padding:110px 80px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;align-items:center;
+  background:var(--white);
+  border-top:1px solid rgba(17,16,16,0.07);
+}
+.journey-right{}
+.j-eyebrow{
+  font-size:9px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:18px;font-weight:400;
+}
+.j-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,3.2vw,50px);font-weight:400;
+  color:var(--black);line-height:1.15;margin-bottom:28px;
+}
+.j-body p{
+  font-size:13.5px;line-height:2;color:var(--darkgrey);
+  margin-bottom:16px;font-weight:300;
+}
+.j-cta{
+  margin-top:36px;
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--black);font-weight:500;
+  border-bottom:1.5px solid var(--black);padding-bottom:4px;
+  transition:gap .3s,color .3s,border-color .3s;
+}
+.j-cta:hover{gap:22px;color:var(--gold);border-color:var(--gold)}
+/* journey photo grid */
+.journey-left{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(3,160px);
+  gap:6px;
+}
+.j-photo{
+  overflow:hidden;position:relative;
+}
+.j-photo-inner{
+  width:100%;height:100%;
+  transition:transform .7s ease;
+  font-size:0;
+}
+.j-photo:hover .j-photo-inner{transform:scale(1.07)}
+.jp1{background:url('images/journey1.jpg') center/cover no-repeat}
+.jp2{background:url('images/journey2.jpg') center/cover no-repeat}
+.jp3{background:url('images/journey3.jpg') center/cover no-repeat;grid-column:1/-1}
+.jp4{background:url('images/journey4.jpg') center/cover no-repeat}
+.jp5{background:url('images/journey5.jpg') center/cover no-repeat}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:var(--black);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--linelight);
+  border-bottom:1px solid var(--linelight);
+}
+.stat-item{
+  padding:52px 24px;text-align:center;
+  border-right:1px solid var(--linelight);
+  position:relative;
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:56px;font-weight:400;color:var(--white);
+  line-height:1;margin-bottom:8px;
+}
+.stat-num span{color:var(--gold)}
+.stat-lbl{
+  font-size:9px;letter-spacing:3px;color:var(--grey);
+  text-transform:uppercase;font-weight:400;
+}
+
+/* ── SECTION HEADERS ── */
+.section-hdr{
+  padding:90px 80px 50px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.section-hdr-left{}
+.sh-eyebrow{font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;font-weight:400}
+.sh-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,3vw,46px);font-weight:400;color:var(--black);
+  line-height:1.15;
+}
+.sh-title em{color:var(--gold);font-style:italic}
+.sh-link{
+  font-size:9.5px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--darkgrey);font-weight:400;
+  border-bottom:1px solid rgba(74,71,68,0.3);padding-bottom:3px;
+  transition:color .3s,border-color .3s;
+}
+.sh-link:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ── PROJECT FILTERS ── */
+.proj-filters{
+  padding:0 80px 40px;
+  display:flex;gap:0;border-bottom:1px solid rgba(17,16,16,0.08);
+}
+.pf-btn{
+  padding:12px 28px;font-size:9.5px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--grey);font-weight:400;
+  cursor:pointer;border-bottom:2px solid transparent;
+  transition:color .3s,border-color .3s;background:none;
+  font-family:'Raleway',sans-serif;
+}
+.pf-btn:hover,.pf-btn.active{color:var(--black);border-bottom-color:var(--gold)}
+
+/* ── PROJECT GRID ── */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  padding:0 80px 100px;
+  padding-top:0;
+}
+.proj-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:var(--offwhite);
+}
+/* 2 wide featured */
+.proj-card.featured{grid-column:span 2}
+.proj-card.featured .pc-img{aspect-ratio:16/10}
+.pc-img{
+  aspect-ratio:1;
+  position:relative;overflow:hidden;
+}
+.pc-img-bg{
+  position:absolute;inset:0;
+  transition:transform .7s ease;
+}
+.proj-card:hover .pc-img-bg{transform:scale(1.06)}
+.pci1{background:url('images/proj1.jpg') center/cover no-repeat}
+.pci2{background:url('images/proj2.jpg') center/cover no-repeat}
+.pci3{background:url('images/proj3.jpg') center/cover no-repeat}
+.pci4{background:url('images/proj4.jpg') center/cover no-repeat}
+.pci5{background:url('images/proj5.jpg') center/cover no-repeat}
+.pci6{background:url('images/proj6.jpg') center/cover no-repeat}
+.pci7{background:url('images/proj7.jpg') center/cover no-repeat}
+.pci8{background:url('images/proj8.jpg') center/cover no-repeat}
+.pci9{background:url('images/proj9.jpg') center/cover no-repeat}
+.pci10{background:url('images/proj10.jpg') center/cover no-repeat}
+.pc-img-ph{display:none}
+.pc-overlay{
+  position:absolute;inset:0;
+  background:rgba(17,16,16,0.88);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  opacity:0;transition:opacity .4s;padding:30px;
+  text-align:center;
+}
+.proj-card:hover .pc-overlay{opacity:1}
+.pc-overlay-cat{font-size:8.5px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:400}
+.pc-overlay-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:16px}
+.pc-overlay-link{
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(248,246,242,0.6);
+  border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:2px;
+  transition:color .2s;font-weight:400;
+}
+.pc-overlay-link:hover{color:var(--gold)}
+.pc-label{
+  padding:16px 20px;
+  background:var(--white);
+  border-top:1px solid rgba(17,16,16,0.07);
+}
+.pc-label-cat{font-size:8px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;font-weight:400}
+.pc-label-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:400;color:var(--black)}
+
+/* grid borders */
+.proj-card{border-right:1px solid rgba(17,16,16,0.07);border-bottom:1px solid rgba(17,16,16,0.07)}
+
+/* ── YEARS EXCELLENCE DARK SECTION ── */
+.excellence{
+  background:var(--black);
+  padding:110px 80px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:start;
+}
+.exc-left .j-eyebrow{margin-bottom:18px}
+.exc-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,2.8vw,42px);font-weight:400;
+  color:var(--white);line-height:1.2;margin-bottom:30px;
+}
+.exc-left p{
+  font-size:13px;line-height:2;color:rgba(248,246,242,0.45);
+  margin-bottom:18px;font-weight:300;
+}
+/* clients logos strip */
+.clients-strip{
+  margin-top:44px;
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.client-chip{
+  padding:8px 16px;
+  border:1px solid var(--linelight);
+  font-size:8px;letter-spacing:2.5px;color:rgba(248,246,242,0.4);
+  text-transform:uppercase;font-weight:400;
+  transition:border-color .3s,color .3s;
+}
+.client-chip:hover{border-color:var(--gold);color:var(--gold)}
+/* right offices */
+.exc-right{}
+.exc-right h3{
+  font-size:9px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:30px;font-weight:400;
+}
+.office-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.office-item{
+  padding:22px 0;
+  border-bottom:1px solid var(--linelight);
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;transition:padding-left .3s;
+}
+.office-item:first-child{border-top:1px solid var(--linelight)}
+.office-item:hover{padding-left:8px}
+.office-city{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:400;color:var(--white);
+}
+.office-country{font-size:9px;letter-spacing:2.5px;color:var(--grey);text-transform:uppercase;margin-top:4px;font-weight:400}
+.office-arrow{color:var(--gold);font-size:18px;opacity:0;transition:opacity .3s}
+.office-item:hover .office-arrow{opacity:1}
+
+/* ── NEWS SECTION ── */
+.news-section{
+  padding:0 80px 100px;
+  background:var(--white);
+}
+.news-grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr;
+  gap:0;
+  border:1px solid rgba(17,16,16,0.08);
+}
+.news-item{
+  padding:32px 32px 36px;
+  border-right:1px solid rgba(17,16,16,0.08);
+  cursor:pointer;transition:background .3s;
+}
+.news-item:last-child{border-right:none}
+.news-item:hover{background:var(--offwhite)}
+.news-item.featured{padding:40px 40px 44px}
+.news-img{
+  width:100%;aspect-ratio:16/9;
+  position:relative;overflow:hidden;
+  margin-bottom:24px;
+}
+.news-img-bg{
+  position:absolute;inset:0;
+  transition:transform .6s;
+}
+.news-item:hover .news-img-bg{transform:scale(1.05)}
+.ni1{background:url('images/news1.jpg') center/cover no-repeat}
+.ni2{background:url('images/news2.jpg') center/cover no-repeat}
+.ni3{background:url('images/news3.jpg') center/cover no-repeat}
+.news-img-ph{display:none}
+.news-cat{
+  font-size:8.5px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:10px;font-weight:400;
+}
+.news-title{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:400;color:var(--black);
+  line-height:1.35;margin-bottom:10px;
+}
+.news-item.featured .news-title{font-size:24px}
+.news-date{font-size:10px;color:var(--grey);font-weight:300}
+/* more news list */
+.news-list-section{padding:0 80px 60px;border-top:1px solid rgba(17,16,16,0.06)}
+.news-list{list-style:none}
+.news-list-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0;border-bottom:1px solid rgba(17,16,16,0.06);
+  cursor:pointer;transition:padding-left .3s;
+  gap:30px;
+}
+.news-list-item:hover{padding-left:8px}
+.nli-cat{font-size:8.5px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;font-weight:400;min-width:110px}
+.nli-title{
+  font-family:'Playfair Display',serif;font-size:15px;font-weight:400;color:var(--black);
+  flex:1;
+}
+.nli-date{font-size:10px;color:var(--grey);white-space:nowrap;font-weight:300}
+
+/* ── STUDIOS MAP SECTION ── */
+.studios{background:var(--offwhite);padding:0 0 0}
+.studios-header{
+  padding:90px 80px 60px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.studios-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.studio-item{
+  position:relative;overflow:hidden;
+  height:400px;
+}
+.studio-img{
+  position:absolute;inset:0;
+  transition:transform .8s ease;
+}
+.studio-item:hover .studio-img{transform:scale(1.05)}
+.si1{background:url('images/studio1.jpg') center/cover no-repeat}
+.si2{background:url('images/studio2.jpg') center/cover no-repeat}
+.si3{background:url('images/studio3.jpg') center/cover no-repeat}
+.si4{background:url('images/studio4.jpg') center/cover no-repeat}
+.studio-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(17,16,16,.85) 0%,rgba(17,16,16,.1) 55%);
+}
+.studio-ph{display:none}
+.studio-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:32px 40px;z-index:2;
+}
+.studio-city{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:400;color:var(--white);margin-bottom:4px;
+}
+.studio-country{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:400}
+
+/* ── CONNECT / CONTACT ── */
+.connect{
+  background:var(--black);
+  padding:100px 80px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;
+  border-top:1px solid var(--linelight);
+}
+.conn-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,3vw,48px);font-weight:400;
+  color:var(--white);line-height:1.15;margin-bottom:14px;
+}
+.conn-left p{font-size:13px;color:rgba(248,246,242,.45);line-height:1.9;margin-bottom:36px;font-weight:300}
+/* form */
+.contact-form{display:flex;flex-direction:column;gap:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.form-group{
+  position:relative;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.form-group:last-child,.form-group:nth-child(even){border-right:none}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:transparent;border:none;outline:none;
+  padding:20px 0 14px;
+  font-size:13px;color:var(--white);
+  font-family:'Raleway',sans-serif;font-weight:300;
+  letter-spacing:0.3px;
+}
+.form-group textarea{min-height:120px;resize:none;padding-top:24px}
+.form-group select{color:rgba(248,246,242,0.5);cursor:pointer}
+.form-group select option{background:var(--black);color:var(--white)}
+.form-group label{
+  position:absolute;top:20px;left:0;
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(248,246,242,0.3);font-weight:400;
+  transition:top .2s,font-size .2s,color .2s;
+  pointer-events:none;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select.has-value + label{
+  top:6px;font-size:7.5px;color:var(--grey);
+}
+.form-submit-row{margin-top:32px}
+.btn-submit{
+  background:var(--white);color:var(--black);
+  padding:17px 52px;font-size:9.5px;letter-spacing:3.5px;
+  text-transform:uppercase;font-weight:500;
+  font-family:'Raleway',sans-serif;
+  cursor:pointer;border:1px solid rgba(200,200,200,0.3);
+  transition:background .3s,transform .2s;
+}
+.btn-submit:hover{background:var(--gold2);color:var(--white);transform:translateY(-1px)}
+/* office addresses */
+.conn-right{}
+.conn-right h3{
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-weight:400;color:var(--white);
+  letter-spacing:1px;margin-bottom:32px;
+}
+.office-addresses{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.oa-item{}
+.oa-city{
+  font-size:9px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:10px;font-weight:400;
+}
+.oa-detail{font-size:11.5px;color:rgba(248,246,242,0.45);line-height:1.85;font-weight:300}
+
+/* ── INSTAGRAM STRIP ── */
+.insta-section{
+  background:var(--black);
+  padding:60px 80px 70px;
+  border-top:1px solid var(--linelight);
+}
+.insta-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:36px;
+}
+.insta-header h3{
+  font-size:9px;letter-spacing:4px;color:rgba(248,246,242,.45);
+  text-transform:uppercase;font-weight:400;
+}
+.insta-header a{
+  font-size:9.5px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;font-weight:400;
+  border-bottom:1px solid rgba(140,140,140,.3);padding-bottom:2px;
+  transition:border-color .3s;
+}
+.insta-header a:hover{border-color:var(--gold)}
+.insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.insta-thumb{
+  aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;
+}
+.insta-thumb-bg{
+  position:absolute;inset:0;
+  transition:transform .5s;
+}
+.insta-thumb:hover .insta-thumb-bg{transform:scale(1.1)}
+.it1{background:url('images/insta1.jpg') center/cover no-repeat}
+.it2{background:url('images/insta2.jpg') center/cover no-repeat}
+.it3{background:url('images/insta3.jpg') center/cover no-repeat}
+.it4{background:url('images/insta4.jpg') center/cover no-repeat}
+.it5{background:url('images/insta5.jpg') center/cover no-repeat}
+.it6{background:url('images/insta6.jpg') center/cover no-repeat}
+.insta-thumb-overlay{
+  position:absolute;inset:0;background:rgba(17,16,16,.4);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:center;justify-content:center;
+}
+.insta-thumb:hover .insta-thumb-overlay{opacity:1}
+.insta-thumb-overlay span{font-size:22px;color:var(--white)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black);
+  border-top:1px solid var(--linelight);
+  padding:60px 80px 36px;
+}
+.footer-top{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:60px;padding-bottom:48px;
+  border-bottom:1px solid var(--linelight);
+}
+.footer-brand .logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:20px;color:var(--white);letter-spacing:4px;
+  margin-bottom:16px;display:block;
+}
+.footer-brand p{
+  font-size:11.5px;color:rgba(248,246,242,.38);
+  line-height:1.9;max-width:280px;font-weight:300;
+}
+.footer-social{display:flex;gap:14px;margin-top:28px}
+.footer-social a{
+  width:34px;height:34px;border:1px solid var(--linelight);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:rgba(248,246,242,.45);
+  transition:border-color .3s,color .3s;
+}
+.footer-social a:hover{border-color:var(--gold);color:var(--gold)}
+.footer-col h4{
+  font-size:9px;letter-spacing:3.5px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:20px;font-weight:400;
+}
+.footer-col a{
+  display:block;font-size:12px;
+  color:rgba(248,246,242,.4);margin-bottom:12px;
+  transition:color .3s;font-weight:300;letter-spacing:0.2px;
+}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{
+  padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:9.5px;color:rgba(248,246,242,.22);
+  letter-spacing:2px;text-transform:uppercase;font-weight:300;
+}
+
+/* ── BACK TO TOP ── */
+.back-top{
+  position:fixed;bottom:36px;right:36px;z-index:500;
+  width:44px;height:44px;
+  background:var(--black);border:1px solid var(--linelight);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:18px;
+  opacity:0;pointer-events:none;transition:opacity .3s;cursor:pointer;
+}
+.back-top.visible{opacity:1;pointer-events:all}
+.back-top:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+
+/* ── PAGE LOAD ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-panel-content{animation:fadeUp .9s ease both}
+.hp1 .hero-panel-content{animation-delay:.15s}
+.hp2 .hero-panel-content{animation-delay:.3s}
+.hp3 .hero-panel-content{animation-delay:.45s}
+
+/* ── SCROLL REVEAL ── */
+.reveal-ready{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal-ready.revealed{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nav-left,.nav-right{gap:0}
+  .nav-left li a,.nav-right li a{padding:10px 12px;font-size:9.5px;letter-spacing:2px}
+  .proj-grid{grid-template-columns:repeat(2,1fr)}
+  .proj-card.featured{grid-column:span 1}
+  .news-grid{grid-template-columns:1fr}
+  .news-item.featured,.news-item{border-right:none;border-bottom:1px solid rgba(17,16,16,.08)}
+  .news-item:last-child{border-bottom:none}
+  .studios-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  :root{--nav-h:62px}
+  .nav-right{display:none}
+  .nav-toggle{display:flex}
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-panel{height:280px}
+  .hero-panel:not(:last-child)::after{display:none}
+  .hero-badge{display:none}
+  .mag-strip,.journey,.excellence,.connect,.studios-header{grid-template-columns:1fr;gap:60px}
+  .mag-strip{min-height:auto}
+  .journey,.excellence,.connect{padding:70px 30px}
+  .section-hdr,.proj-filters,.proj-grid,.news-section,.insta-section,.studios-header{padding-left:24px;padding-right:24px}
+  .news-list-section{padding:0 24px 60px}
+  .proj-grid{grid-template-columns:1fr 1fr;padding-left:24px;padding-right:24px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px;padding:0 24px 40px}
+  footer{padding:50px 24px 30px}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-item:nth-child(2){border-right:none}
+  .office-addresses{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .insta-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ── CAROUSEL / LIGHTBOX ── */
+.carousel-modal{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,0.94);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.carousel-modal.open{display:flex}
+.carousel-img-wrap{
+  position:relative;
+  max-width:90vw;max-height:78vh;
+  display:flex;align-items:center;justify-content:center;
+  flex:1;
+}
+.carousel-img-wrap img{
+  max-width:90vw;max-height:78vh;
+  object-fit:contain;
+  border-radius:2px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  transition:opacity .3s ease;
+}
+.carousel-img-wrap img.fading{opacity:0}
+.carousel-close{
+  position:absolute;top:24px;right:28px;
+  font-size:32px;color:rgba(255,255,255,0.7);
+  background:none;border:none;cursor:pointer;
+  line-height:1;transition:color .2s;z-index:10;
+  font-weight:300;
+}
+.carousel-close:hover{color:#fff}
+.carousel-prev,.carousel-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:48px;color:rgba(255,255,255,0.5);
+  background:none;border:none;cursor:pointer;
+  line-height:1;transition:color .2s,transform .2s;
+  padding:20px 12px;z-index:10;font-weight:200;
+}
+.carousel-prev{left:16px}
+.carousel-next{right:16px}
+.carousel-prev:hover,.carousel-next:hover{color:#fff;transform:translateY(-50%) scale(1.1)}
+.carousel-counter{
+  margin-top:18px;
+  font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.4);
+  font-family:'Raleway',sans-serif;font-weight:300;
+}
+.carousel-dots{
+  display:flex;gap:8px;margin-top:14px;
+}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  cursor:pointer;transition:background .25s,transform .25s;border:none;
+}
+.carousel-dot.active{background:#ffffff;transform:scale(1.3)}
+.carousel-caption{
+  margin-top:12px;font-size:11px;letter-spacing:2px;
+  color:rgba(255,255,255,0.45);font-family:'Raleway',sans-serif;
+  text-transform:uppercase;font-weight:300;
+}
+
+/* ── MOBILE NAV MENU ── */
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:12px;cursor:pointer;margin-left:16px}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,0.7);transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;
+  background:rgba(18,18,18,0.99);z-index:999;
+  flex-direction:column;padding:24px 32px 32px;
+  border-bottom:1px solid rgba(180,180,180,0.1);
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  display:block;padding:14px 0;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(248,246,242,0.7);font-weight:400;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAV — SPLIT LAYOUT
+════════════════════════════════ -->
+<nav class="nav-wrap" id="mainNav">
+  <div class="nav-logo">
+    <a href="#">
+      <img src="images/logo.png" alt="Shokeen Design Group">
+    </a>
+  </div>
+
+  <ul class="nav-right">
+    <li class="has-drop">
+      <a href="about.html">About Us</a>
+      <ul class="drop-menu">
+        <li><a href="about.html">The People</a></li>
+        <li><a href="brands.html">Brands</a></li>
+        <li><a href="clients.html">Our Clients</a></li>
+        <li><a href="awards.html">Awards</a></li>
+      </ul>
+    </li>
+    <li><a href="interior-design.html">Interior Design</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="studios.html">Our Studios</a></li>
+    <li><a href="careers.html">Careers</a></li>
+  </ul>
+
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- ══════════════════════════════
+     HERO — 3 PANELS
+════════════════════════════════ -->
+<section class="hero">
+
+  <div class="hero-panel hp1" id="interior" onclick="openCarousel('interior')">
+    <div class="hero-panel-bg"></div>
+    <div class="hero-panel-overlay"></div>
+    <div class="hero-panel-content">
+      <p class="hero-panel-label">Interior Design</p>
+      <h2 class="hero-panel-title">Crafting<br/>Immersive Spaces</h2>
+      <a href="#" class="hero-panel-link" onclick="openCarousel('interior');return false;">Know More &rarr;</a>
+    </div>
+  </div>
+
+  <div class="hero-panel hp2" id="architecture" onclick="openCarousel('architecture')">
+    <div class="hero-panel-bg"></div>
+    <div class="hero-panel-overlay"></div>
+    <div class="hero-panel-content">
+      <p class="hero-panel-label">Architecture</p>
+      <h2 class="hero-panel-title">Building<br/>Landmark Visions</h2>
+      <a href="#" class="hero-panel-link" onclick="openCarousel('architecture');return false;">Know More &rarr;</a>
+    </div>
+  </div>
+
+  <div class="hero-panel hp3" onclick="openCarousel('company')">
+    <div class="hero-panel-bg"></div>
+    <div class="hero-panel-overlay"></div>
+    <div class="hero-panel-content">
+      <p class="hero-panel-label">The Company</p>
+      <h2 class="hero-panel-title">9 Years of<br/>Design Excellence</h2>
+      <a href="#" class="hero-panel-link" onclick="openCarousel('company');return false;">Know More &rarr;</a>
+    </div>
+  </div>
+
+  <!-- center floating badge -->
+  <div class="hero-badge">
+    <div class="hero-badge-ring">
+      <div class="hero-badge-inner">
+        <div class="yr">9</div>
+        <div class="yr-lbl">Years</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     MAGAZINE STRIP
+════════════════════════════════ -->
+<section class="mag-strip">
+  <div class="mag-left">
+    <p class="mag-eyebrow">Featured Project</p>
+    <h2 class="mag-title">Madman Lounge<br/>&amp; Resort, Bhutan</h2>
+    <p class="mag-body">A serene sanctuary that beautifully honours its breathtaking setting in Punakha, Bhutan. Merging raw, organic textures with refined modern luxury — floor-to-ceiling timber paneling, hand-carved Bhutanese motifs, and panoramic Himalayan views that capture the quiet soul of the valley.</p>
+    <a href="#" class="mag-cta" onclick="openProjectCarousel('madman');return false;">Explore Project &rarr;</a>
+  </div>
+  <div class="mag-right">
+    <div class="mag-cover" onclick="openProjectCarousel('madman')" style="cursor:pointer">
+      <div class="mag-cover-inner"></div>
+      <div class="mag-cover-label">
+        <h4>Madman Lounge &amp; Resort</h4>
+        <p>Punakha, Bhutan &mdash; Resort &amp; Interior Design</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     THE JOURNEY
+════════════════════════════════ -->
+<section class="journey">
+  <div class="journey-left">
+    <div class="j-photo jp1"><div class="j-photo-inner">JOURNEY IMAGE 01</div></div>
+    <div class="j-photo jp2"><div class="j-photo-inner">JOURNEY IMAGE 02</div></div>
+    <div class="j-photo jp3"><div class="j-photo-inner">JOURNEY IMAGE 03</div></div>
+    <div class="j-photo jp4"><div class="j-photo-inner">JOURNEY IMAGE 04</div></div>
+    <div class="j-photo jp5"><div class="j-photo-inner">JOURNEY IMAGE 05</div></div>
+  </div>
+  <div class="journey-right">
+    <p class="j-eyebrow">Our Story</p>
+    <h2 class="j-title">The Journey</h2>
+    <div class="j-body">
+      <p>Since 2018, Shokeen Design Group has grown from a passionate vision into one of Delhi's most trusted design studios, completing 300+ projects spanning over 2.5 lakh square feet of thoughtfully crafted spaces.</p>
+      <p>Founded by Inderjeet Shokeen (Victor) and led by CEO Ankit Shokeen, SDG's design philosophy is rooted in the belief that great spaces should not just look beautiful — they must feel right. Every project is an exploration of function, culture, and detail.</p>
+      <p>Our team of Architects and Interior Designers share one guiding ideology: that extraordinary design is never a coincidence — it is the result of conviction, collaboration, and an unwavering attention to the details that matter most.</p>
+    </div>
+    <a href="#" class="j-cta">Know More About Us &rarr;</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     STATS BAR
+════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">300<span>+</span></div>
+    <div class="stat-lbl">Projects Completed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">9</div>
+    <div class="stat-lbl">Years of Excellence</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">25</div>
+    <div class="stat-lbl">Team Members</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2.5<span>L</span></div>
+    <div class="stat-lbl">Sq. Ft. Designed</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     PROJECT GRID WITH FILTERS
+════════════════════════════════ -->
+<section>
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <p class="sh-eyebrow">Our Work</p>
+      <h2 class="sh-title">Selected <em>Projects</em></h2>
+    </div>
+    <a href="#" class="sh-link">View All Projects</a>
+  </div>
+
+  <div class="proj-filters">
+    <button class="pf-btn active" onclick="filterProj(this,'all')">Show All</button>
+    <button class="pf-btn" onclick="filterProj(this,'hotel')">Hotels &amp; City</button>
+    <button class="pf-btn" onclick="filterProj(this,'resort')">Resorts</button>
+    <button class="pf-btn" onclick="filterProj(this,'fnb')">Bars &amp; Restaurants</button>
+    <button class="pf-btn" onclick="filterProj(this,'commercial')">Banquet &amp; Commercial</button>
+  </div>
+
+  <div class="proj-grid" id="projGrid">
+
+    <!-- Row 1 -->
+    <div class="proj-card featured" data-cat="hotel" onclick="openProjectCarousel('ace')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci1"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">City Hotel &mdash; New Delhi</p>
+          <h3 class="pc-overlay-title">The Ace Hotel</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('ace');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">City Hotel &middot; Interior Design</p>
+        <h3 class="pc-label-name">The Ace Hotel</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="hotel" onclick="openProjectCarousel('oasis')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci2"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">City Hotel &mdash; New Delhi</p>
+          <h3 class="pc-overlay-title">Oasis</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('oasis');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">City Hotel &middot; Interior Design</p>
+        <h3 class="pc-label-name">Oasis</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('angaar')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci4"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Restaurant &mdash; Ambala, Haryana</p>
+          <h3 class="pc-overlay-title">Angaar</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('angaar');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Restaurant &middot; Interior Design</p>
+        <h3 class="pc-label-name">Angaar</h3>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="proj-card featured" data-cat="resort" onclick="openProjectCarousel('madman')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci3"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Resort &mdash; Punakha, Bhutan</p>
+          <h3 class="pc-overlay-title">Madman Lounge &amp; Resort</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('madman');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Resort &middot; Interior Design</p>
+        <h3 class="pc-label-name">Madman Lounge &amp; Resort</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('zola')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci5"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Bar &amp; Lounge &mdash; Hyderabad</p>
+          <h3 class="pc-overlay-title">ZOLA</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('zola');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Bar &amp; Lounge &middot; Interior Design</p>
+        <h3 class="pc-label-name">ZOLA</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('spice')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci6"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Restaurant &mdash; Nainital</p>
+          <h3 class="pc-overlay-title">The Spice Route</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('spice');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Restaurant &middot; Interior Design</p>
+        <h3 class="pc-label-name">The Spice Route</h3>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="proj-card" data-cat="commercial" onclick="openProjectCarousel('tulips')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci7"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Banquet &mdash; GT Road, Kundli</p>
+          <h3 class="pc-overlay-title">Red Tulips</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('tulips');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Banquet Hall &middot; Interior Design</p>
+        <h3 class="pc-label-name">Red Tulips</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="commercial" onclick="openProjectCarousel('supreme')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci8"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Co-working &mdash; Gurgaon</p>
+          <h3 class="pc-overlay-title">Supreme Workspace</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('supreme');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Co-working &middot; Interior Design</p>
+        <h3 class="pc-label-name">Supreme Workspace</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="resort" onclick="openProjectCarousel('madrest')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci9"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Resort Restaurant &mdash; Bhutan</p>
+          <h3 class="pc-overlay-title">Madman Restaurant</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('madrest');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Resort &middot; Interior Design</p>
+        <h3 class="pc-label-name">Madman Restaurant</h3>
+      </div>
+    </div>
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('bois')">
+      <div class="pc-img">
+        <div class="pc-img-bg pci10"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Bar &amp; Lounge &mdash; Madagascar</p>
+          <h3 class="pc-overlay-title">Bois Blanc</h3>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('bois');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label">
+        <p class="pc-label-cat">Bar &amp; Lounge &middot; Interior Design</p>
+        <h3 class="pc-label-name">Bois Blanc</h3>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     26 YEARS / EXCELLENCE DARK
+════════════════════════════════ -->
+<section class="excellence">
+  <div class="exc-left">
+    <p class="j-eyebrow">About Us</p>
+    <h2>9 Years of<br/>Design Excellence</h2>
+    <p>Shokeen Design Group has established a distinctive presence across India, with award-winning projects spanning luxury city hotels, mountain resorts, destination restaurants, sky lounges, banquet halls, and innovative co-working spaces.</p>
+    <p>Key to our success is the manner in which our Architects and Interior Designers work alongside each other and partner closely with clients to fully embrace their vision. Every project delivers an immersive experience that incorporates the best of both disciplines.</p>
+    <p>Under the passionate leadership of our Founder Inderjeet Shokeen (Victor) and CEO Ankit Shokeen, SDG's 25-strong team brings each concept to life with cultural sensitivity, design integrity, and uncompromising detail.</p>
+    <div class="clients-strip">
+      <div class="client-chip" onclick="openProjectCarousel('ace')" style="cursor:pointer">The Ace Hotel</div>
+      <div class="client-chip" onclick="openProjectCarousel('oasis')" style="cursor:pointer">Oasis</div>
+      <div class="client-chip" onclick="openProjectCarousel('madman')" style="cursor:pointer">Madman Resort</div>
+      <div class="client-chip" onclick="openProjectCarousel('zola')" style="cursor:pointer">ZOLA</div>
+      <div class="client-chip" onclick="openProjectCarousel('angaar')" style="cursor:pointer">Angaar</div>
+      <div class="client-chip" onclick="openProjectCarousel('spice')" style="cursor:pointer">The Spice Route</div>
+      <div class="client-chip" onclick="openProjectCarousel('tulips')" style="cursor:pointer">Red Tulips</div>
+      <div class="client-chip" onclick="openProjectCarousel('supreme')" style="cursor:pointer">Supreme Workspace</div>
+      <div class="client-chip" onclick="openProjectCarousel('bois')" style="cursor:pointer">Bois Blanc</div>
+      <div class="client-chip" onclick="openProjectCarousel('madrest')" style="cursor:pointer">Madman Restaurant</div>
+    </div>
+  </div>
+  <div class="exc-right">
+    <h3>Our International Studios</h3>
+    <ul class="office-list" id="studios">
+      <li class="office-item">
+        <div>
+          <div class="office-city">New Delhi</div>
+          <div class="office-country">India</div>
+        </div>
+        <span class="office-arrow">&rarr;</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     LATEST NEWS
+════════════════════════════════ -->
+<section id="news">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <p class="sh-eyebrow">Media</p>
+      <h2 class="sh-title">Latest <em>News</em></h2>
+    </div>
+    <a href="#" class="sh-link">All News &rarr;</a>
+  </div>
+
+  <div class="news-section">
+    <div class="news-grid">
+      <div class="news-item featured" onclick="openProjectCarousel('spice')" style="cursor:pointer">
+        <div class="news-img">
+          <div class="news-img-bg ni1"></div>
+        </div>
+        <p class="news-cat">Project Spotlight</p>
+        <h3 class="news-title">The Spice Route — A Culinary Sanctuary in the Hills of Nainital</h3>
+        <p class="news-date">May 2026</p>
+      </div>
+      <div class="news-item" onclick="openProjectCarousel('zola')" style="cursor:pointer">
+        <div class="news-img">
+          <div class="news-img-bg ni2"></div>
+        </div>
+        <p class="news-cat">New Opening</p>
+        <h3 class="news-title">ZOLA Sky Lounge Opens High Above Hyderabad</h3>
+        <p class="news-date">April 2026</p>
+      </div>
+      <div class="news-item" onclick="openProjectCarousel('angaar')" style="cursor:pointer">
+        <div class="news-img">
+          <div class="news-img-bg ni3"></div>
+        </div>
+        <p class="news-cat">New Opening</p>
+        <h3 class="news-title">Angaar — Bold, Avant-Garde Dining Comes to Ambala</h3>
+        <p class="news-date">March 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-list-section">
+    <ul class="news-list">
+      <li class="news-list-item" onclick="openProjectCarousel('ace')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">The Ace Hotel — European Elegance Reborn in New Delhi</span>
+        <span class="nli-date">Feb 2026</span>
+      </li>
+      <li class="news-list-item" onclick="openProjectCarousel('oasis')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">Oasis — An Egyptian Narrative in the Heart of New Delhi</span>
+        <span class="nli-date">Jan 2026</span>
+      </li>
+      <li class="news-list-item" onclick="openProjectCarousel('madman')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">Madman Lounge &amp; Resort — Himalayan Serenity in Punakha</span>
+        <span class="nli-date">Dec 2025</span>
+      </li>
+      <li class="news-list-item" onclick="openProjectCarousel('tulips')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">Red Tulips — A Masterclass in Grand Banquet Design, Kundli</span>
+        <span class="nli-date">Nov 2025</span>
+      </li>
+      <li class="news-list-item" onclick="openProjectCarousel('supreme')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">Supreme Workspace — Reimagining Co-working in Gurgaon</span>
+        <span class="nli-date">Oct 2025</span>
+      </li>
+      <li class="news-list-item" onclick="openProjectCarousel('bois')" style="cursor:pointer">
+        <span class="nli-cat">Project</span>
+        <span class="nli-title">Bois Blanc — A Tropical Speakeasy in Madagascar</span>
+        <span class="nli-date">Sep 2025</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     OUR STUDIOS
+════════════════════════════════ -->
+<section class="studios">
+  <div class="studios-header">
+    <div class="section-hdr-left" style="padding:0">
+      <p class="sh-eyebrow">Global Presence</p>
+      <h2 class="sh-title">Our <em>Studios</em></h2>
+    </div>
+    <a href="#" class="sh-link">All Locations &rarr;</a>
+  </div>
+  <div class="studios-grid">
+    <div class="studio-item">
+      <div class="studio-img si1"></div>
+      <div class="studio-overlay"></div>
+      <div class="studio-ph">DELHI STUDIO IMAGE</div>
+      <div class="studio-content">
+        <div class="studio-city">Najafgarh, New Delhi</div>
+        <div class="studio-country">India &mdash; Est. 2018</div>
+      </div>
+    </div>
+    <div class="studio-item">
+      <div class="studio-img si2"></div>
+      <div class="studio-overlay"></div>
+      <div class="studio-ph">STUDIO IMAGE</div>
+      <div class="studio-content">
+        <div class="studio-city">Mahesh Garden</div>
+        <div class="studio-country">Najafgarh, New Delhi</div>
+      </div>
+    </div>
+    <div class="studio-item">
+      <div class="studio-img si3"></div>
+      <div class="studio-overlay"></div>
+      <div class="studio-ph">STUDIO IMAGE</div>
+      <div class="studio-content">
+        <div class="studio-city">Design Studio</div>
+        <div class="studio-country">New Delhi &mdash; 110043</div>
+      </div>
+    </div>
+    <div class="studio-item">
+      <div class="studio-img si4"></div>
+      <div class="studio-overlay"></div>
+      <div class="studio-ph">STUDIO IMAGE</div>
+      <div class="studio-content">
+        <div class="studio-city">Shokeen Design Group</div>
+        <div class="studio-country">Main Najafgarh Bahadurgarh Road</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     CONNECT / CONTACT
+════════════════════════════════ -->
+<section class="connect" id="contact">
+  <div class="conn-left">
+    <h2>Connect<br/>With Us</h2>
+    <p>We would love to hear about your project. Please complete the form and one of our team members will be in touch shortly.</p>
+
+    <form class="contact-form" onsubmit="return false">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="fname" placeholder=" "/>
+          <label for="fname">First Name</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="lname" placeholder=" "/>
+          <label for="lname">Last Name</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="email" id="email" placeholder=" "/>
+          <label for="email">Email Address</label>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="phone" placeholder=" "/>
+          <label for="phone">Phone Number</label>
+        </div>
+      </div>
+      <div class="form-group" style="border-right:none">
+        <select id="studio">
+          <option value="" disabled selected></option>
+          <option>Connect with New Delhi, India</option>
+        </select>
+        <label for="studio" style="pointer-events:none;top:20px">Studio</label>
+      </div>
+      <div class="form-group" style="border-right:none">
+        <textarea id="message" placeholder=" " rows="4"></textarea>
+        <label for="message">Your Message</label>
+      </div>
+      <div class="form-submit-row">
+        <button class="btn-submit" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="conn-right">
+    <h3>Our Offices</h3>
+    <div class="office-addresses">
+      <div class="oa-item">
+        <p class="oa-city">New Delhi, India</p>
+        <p class="oa-detail">Shokeen Design Group<br/>Main Najafgarh Bahadurgarh Road<br/>Mahesh Garden, Najafgarh<br/>New Delhi &mdash; 110043</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     INSTAGRAM STRIP
+════════════════════════════════ -->
+<section class="insta-section">
+  <div class="insta-header">
+    <h3>Follow us on Instagram</h3>
+    <a href="https://instagram.com/shokeendesigngroup/" target="_blank">@shokeendesigngroup &rarr;</a>
+  </div>
+  <div class="insta-grid">
+    <div class="insta-thumb"><div class="insta-thumb-bg it1"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+    <div class="insta-thumb"><div class="insta-thumb-bg it2"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+    <div class="insta-thumb"><div class="insta-thumb-bg it3"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+    <div class="insta-thumb"><div class="insta-thumb-bg it4"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+    <div class="insta-thumb"><div class="insta-thumb-bg it5"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+    <div class="insta-thumb"><div class="insta-thumb-bg it6"></div><div class="insta-thumb-overlay"><span>+</span></div></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="Shokeen Design Group" style="height:40px;width:auto;display:block;margin-bottom:16px;object-fit:contain;">
+      <p>Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
+      <div class="footer-social">
+        <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" aria-label="LinkedIn">in</a>
+        <a href="https://instagram.com/shokeendesigngroup/" target="_blank" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="Facebook">fb</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="about.html">The People</a>
+      <a href="brands.html">Brands</a>
+      <a href="clients.html">Our Clients</a>
+      <a href="awards.html">Awards</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="interior-design.html">Interior Design</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="studios.html">Our Studios</a>
+      <a href="careers.html" id="careers">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#contact">Get in Touch</a>
+      <a href="studios.html">Our Locations</a>
+      <a href="#">Press</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Shokeen Design Group. All Rights Reserved.</span>
+    <span>Najafgarh, New Delhi &middot; India</span>
+  </div>
+</footer>
+
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
+
+<!-- ══ CAROUSEL MODAL ══ -->
+<div id="carouselModal" class="carousel-modal" role="dialog" aria-modal="true">
+  <button class="carousel-close" onclick="closeCarousel()" aria-label="Close">&times;</button>
+  <button class="carousel-prev" onclick="shiftSlide(-1)" aria-label="Previous">&#8249;</button>
+  <div class="carousel-img-wrap">
+    <img id="carouselImg" src="" alt="Project image">
+  </div>
+  <button class="carousel-next" onclick="shiftSlide(1)" aria-label="Next">&#8250;</button>
+  <div class="carousel-caption" id="carouselCaption"></div>
+  <div class="carousel-counter"><span id="carouselCur">1</span> / <span id="carouselTotal">1</span></div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="interior-design.html" onclick="closeMobileMenu()">Interior Design</a>
+  <a href="architecture.html" onclick="closeMobileMenu()">Architecture</a>
+  <a href="studios.html" onclick="closeMobileMenu()">Our Studios</a>
+  <a href="careers.html" onclick="closeMobileMenu()">Careers</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<script>
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+/* ── MOBILE NAV TOGGLE ── */
+const navToggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+});
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  navToggle.classList.remove('open');
+}
+
+/* ── PROJECT FILTER ── */
+function filterProj(btn, cat) {
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+/* ── FORM SELECT LABEL ── */
+document.querySelectorAll('.form-group select').forEach(sel => {
+  sel.addEventListener('change', () => {
+    sel.classList.toggle('has-value', sel.value !== '');
+  });
+});
+
+/* ── CAROUSEL DATA — all 10 projects + hero sets ── */
+const carouselSets = {
+  /* Hero panel sets */
+  interior: {
+    title:'Interior Design',
+    images:[
+      {src:'images/hero1.jpg',   cap:'The Spice Route — Nainital'},
+      {src:'images/proj4.jpg',   cap:'Angaar — Ambala, Haryana'},
+      {src:'images/proj5.jpg',   cap:'ZOLA Sky Lounge — Hyderabad'},
+      {src:'images/proj6.jpg',   cap:'The Spice Route — Nainital'},
+      {src:'images/proj2.jpg',   cap:'Oasis — New Delhi'},
+      {src:'images/proj9.jpg',   cap:'Madman Restaurant — Bhutan'},
+      {src:'images/proj10.jpg',  cap:'Bois Blanc — Madagascar'},
+    ]
+  },
+  architecture: {
+    title:'Architecture',
+    images:[
+      {src:'images/hero2.jpg',   cap:'The Ace Hotel — New Delhi'},
+      {src:'images/proj1.jpg',   cap:'The Ace Hotel — Carlton Suite'},
+      {src:'images/ace2.jpg',    cap:'The Ace Hotel — Casa Nova Suite'},
+      {src:'images/ace3.jpg',    cap:'The Ace Hotel — Front Desk'},
+      {src:'images/ace4.jpg',    cap:'The Ace Hotel — Passage'},
+      {src:'images/proj7.jpg',   cap:'Red Tulips Banquet — Kundli'},
+      {src:'images/proj8.jpg',   cap:'Supreme Workspace — Gurgaon'},
+    ]
+  },
+  company: {
+    title:'The Company',
+    images:[
+      {src:'images/hero3.jpg',   cap:'Madman Resort — Punakha, Bhutan'},
+      {src:'images/proj3.jpg',   cap:'Madman Resort Suite'},
+      {src:'images/madman3.jpg', cap:'Madman Resort — Himalayan View'},
+      {src:'images/madman4.jpg', cap:'Madman Resort — Private Balcony'},
+      {src:'images/proj9.jpg',   cap:'Madman Restaurant — Alpine Dining'},
+      {src:'images/studio3.jpg', cap:'SDG — Bangalore Studio'},
+      {src:'images/studio4.jpg', cap:'SDG — Supreme Workspace'},
+    ]
+  },
+  /* Individual project carousels */
+  ace: {
+    title:'The Ace Hotel — New Delhi',
+    images:[
+      {src:'images/proj1.jpg',  cap:'Carlton Suite'},
+      {src:'images/ace2.jpg',   cap:'Casa Nova Suite'},
+      {src:'images/ace3.jpg',   cap:'Front Desk'},
+      {src:'images/ace4.jpg',   cap:'Hotel Passage'},
+      {src:'images/hero2.jpg',  cap:'Front Elevation'},
+    ]
+  },
+  oasis: {
+    title:'Oasis — New Delhi',
+    images:[
+      {src:'images/proj2.jpg',   cap:'Reception Lobby'},
+      {src:'images/oasis2.jpg',  cap:'Lounge Enclave'},
+      {src:'images/journey2.jpg',cap:'Front Desk Detail'},
+    ]
+  },
+  madman: {
+    title:'Madman Lounge & Resort — Punakha, Bhutan',
+    images:[
+      {src:'images/proj3.jpg',   cap:'Suite Interior'},
+      {src:'images/hero3.jpg',   cap:'Resort Overview'},
+      {src:'images/madman3.jpg', cap:'Himalayan View'},
+      {src:'images/madman4.jpg', cap:'Private Balcony'},
+      {src:'images/insta4.jpg',  cap:'Resort Detail'},
+    ]
+  },
+  madrest: {
+    title:'Madman Restaurant — Punakha, Bhutan',
+    images:[
+      {src:'images/proj9.jpg',   cap:'Alpine Dining Hall'},
+      {src:'images/news2.jpg',   cap:'Restaurant Interior'},
+    ]
+  },
+  angaar: {
+    title:'Angaar — Ambala, Haryana',
+    images:[
+      {src:'images/proj4.jpg',   cap:'Restaurant Interior'},
+      {src:'images/insta6.jpg',  cap:'Bar Detail'},
+    ]
+  },
+  zola: {
+    title:'ZOLA Sky Lounge — Hyderabad',
+    images:[
+      {src:'images/proj5.jpg',   cap:'Lounge Interior'},
+      {src:'images/zola2.jpg',   cap:'Bar Counter'},
+      {src:'images/zola3.jpg',   cap:'Seating Area'},
+      {src:'images/insta1.jpg',  cap:'Lounge Detail'},
+    ]
+  },
+  spice: {
+    title:'The Spice Route — Nainital, Uttrakhand',
+    images:[
+      {src:'images/proj6.jpg',   cap:'Main Dining Hall'},
+      {src:'images/spice2.jpg',  cap:'Timber Arch Detail'},
+      {src:'images/spice3.jpg',  cap:'Valley View'},
+      {src:'images/insta3.jpg',  cap:'Pendant Lighting'},
+      {src:'images/hero1.jpg',   cap:'Restaurant Overview'},
+    ]
+  },
+  tulips: {
+    title:'Red Tulips — GT Road, Kundli',
+    images:[
+      {src:'images/proj7.jpg',   cap:'Grand Banquet Hall'},
+      {src:'images/tulips2.jpg', cap:'Crystal Chandeliers'},
+      {src:'images/tulips3.jpg', cap:'Seating Alcoves'},
+      {src:'images/insta2.jpg',  cap:'Marble Flooring'},
+    ]
+  },
+  supreme: {
+    title:'Supreme Workspace — Gurgaon',
+    images:[
+      {src:'images/proj8.jpg',   cap:'Main Co-working Floor'},
+      {src:'images/supreme2.jpg',cap:'Breakout Zone'},
+      {src:'images/insta5.jpg',  cap:'Pod Sanctuaries'},
+      {src:'images/studio4.jpg', cap:'Collaboration Area'},
+    ]
+  },
+  bois: {
+    title:'Bois Blanc — Mahajanga, Madagascar',
+    images:[
+      {src:'images/proj10.jpg',  cap:'Tropical Speakeasy'},
+      {src:'images/bois2.jpg',   cap:'Live-Edge Bar Counter'},
+      {src:'images/news1.jpg',   cap:'Botanical Ceiling'},
+    ]
+  }
+};
+
+let curSet = [], curIdx = 0;
+
+function openProjectCarousel(key) { openCarousel(key); }
+function openCarousel(key) {
+  const set = carouselSets[key];
+  if (!set) return;
+  curSet = set.images;
+  curIdx = 0;
+  buildDots();
+  loadSlide(0);
+  document.getElementById('carouselModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCarousel() {
+  document.getElementById('carouselModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function buildDots() {
+  const wrap = document.getElementById('carouselDots');
+  wrap.innerHTML = '';
+  curSet.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.onclick = () => loadSlide(i);
+    wrap.appendChild(d);
+  });
+}
+
+function loadSlide(idx) {
+  const img = document.getElementById('carouselImg');
+  img.classList.add('fading');
+  setTimeout(() => {
+    img.src = curSet[idx].src;
+    img.onload = () => img.classList.remove('fading');
+    document.getElementById('carouselCaption').textContent = curSet[idx].cap;
+    document.getElementById('carouselCur').textContent = idx + 1;
+    document.getElementById('carouselTotal').textContent = curSet.length;
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    curIdx = idx;
+  }, 200);
+}
+
+function shiftSlide(dir) {
+  let next = curIdx + dir;
+  if (next < 0) next = curSet.length - 1;
+  if (next >= curSet.length) next = 0;
+  loadSlide(next);
+}
+
+/* Keyboard nav */
+document.addEventListener('keydown', e => {
+  const modal = document.getElementById('carouselModal');
+  if (!modal.classList.contains('open')) return;
+  if (e.key === 'Escape') closeCarousel();
+  if (e.key === 'ArrowLeft') shiftSlide(-1);
+  if (e.key === 'ArrowRight') shiftSlide(1);
+});
+
+/* Click backdrop to close */
+document.getElementById('carouselModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCarousel();
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(
+  '.stat-item,.news-item,.studio-item,.j-photo,.office-item,.news-list-item,.client-chip'
+).forEach(el => {
+  el.classList.add('reveal-ready');
+  revealObserver.observe(el);
+});
+</script>
+</body>
+</html>

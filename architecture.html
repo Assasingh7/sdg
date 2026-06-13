@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Architecture &mdash; SDG Design Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav class="nav-wrap" id="mainNav">
+  <div class="nav-logo"><a href="dark_gold.html"><img src="images/logo.png" alt="SDG Design Group"></a></div>
+  <ul class="nav-right">
+    <li class="has-drop"><a href="about.html">About Us</a>
+      <ul class="drop-menu">
+        <li><a href="about.html">The People</a></li>
+        <li><a href="brands.html">Brands</a></li>
+        <li><a href="clients.html">Our Clients</a></li>
+        <li><a href="awards.html">Awards</a></li>
+      </ul>
+    </li>
+    <li><a href="interior-design.html">Interior Design</a></li>
+    <li><a href="architecture.html" class="active">Architecture</a></li>
+    <li><a href="studios.html">Our Studios</a></li>
+    <li><a href="careers.html">Careers</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('images/hero2.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Our Discipline</p>
+    <h1 class="page-title"><em>Architecture</em></h1>
+  </div>
+</section>
+
+<div class="page-intro">
+  <div>
+    <p class="pi-eyebrow">The Discipline</p>
+    <h2 class="pi-title">Building Landmark Visions</h2>
+  </div>
+  <p class="pi-body">SDG's architectural practice operates at the intersection of cultural sensitivity, structural ambition and spatial poetry. From grand Haussmann-inspired city hotels in New Delhi to serene Himalayan retreats in Bhutan and dynamic commercial environments across India, our architects shape spaces that endure — buildings that anchor communities and inspire every person who walks through their doors.</p>
+</div>
+
+<section>
+  <div class="section-hdr">
+    <div>
+      <p class="sh-eyebrow">Our Work</p>
+      <h2 class="sh-title">Selected <em>Projects</em></h2>
+    </div>
+    <a href="dark_gold.html" class="sh-link">Back to Home &rarr;</a>
+  </div>
+  <div class="proj-filters">
+    <button class="pf-btn active" onclick="filterProj(this,'all')">Show All</button>
+    <button class="pf-btn" onclick="filterProj(this,'hotel')">Hotels &amp; City</button>
+    <button class="pf-btn" onclick="filterProj(this,'resort')">Resorts</button>
+    <button class="pf-btn" onclick="filterProj(this,'fnb')">Bars &amp; Restaurants</button>
+    <button class="pf-btn" onclick="filterProj(this,'commercial')">Banquet &amp; Commercial</button>
+  </div>
+  <div class="proj-grid" id="projGrid">
+
+    <div class="proj-card featured" data-cat="hotel" onclick="openProjectCarousel('ace')">
+      <div class="pc-img"><div class="pc-img-bg pci1"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">City Hotel &mdash; New Delhi</p>
+          <h3 class="pc-overlay-title">The Ace Hotel</h3>
+          <p class="pc-overlay-desc">Luxurious architectural jewel reinterpreting classical European elegance. Prussian blue tones, cream-and-gold wainscoting, tufted velvet accents and grand coffered ceilings.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('ace');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">City Hotel &middot; Interior Design</p><h3 class="pc-label-name">The Ace Hotel</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="hotel" onclick="openProjectCarousel('oasis')">
+      <div class="pc-img"><div class="pc-img-bg pci2"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">City Hotel &mdash; New Delhi</p>
+          <h3 class="pc-overlay-title">Oasis</h3>
+          <p class="pc-overlay-desc">Egyptian narrative meets modern luxury. Backlit sandstone reliefs, pharaonic iconography, golden metallics and a grand mirrored ceiling.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('oasis');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">City Hotel &middot; Interior Design</p><h3 class="pc-label-name">Oasis</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('angaar')">
+      <div class="pc-img"><div class="pc-img-bg pci4"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Restaurant &mdash; Ambala, Haryana</p>
+          <h3 class="pc-overlay-title">Angaar</h3>
+          <p class="pc-overlay-desc">Bold, avant-garde dining. Deep charcoals, fiery reds and rattan lanterns casting a warm glow over red leather banquettes.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('angaar');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Restaurant &middot; Interior Design</p><h3 class="pc-label-name">Angaar</h3></div>
+    </div>
+
+    <div class="proj-card featured" data-cat="resort" onclick="openProjectCarousel('madman')">
+      <div class="pc-img"><div class="pc-img-bg pci3"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Resort &mdash; Punakha, Bhutan</p>
+          <h3 class="pc-overlay-title">Madman Lounge &amp; Resort</h3>
+          <p class="pc-overlay-desc">Serene Himalayan sanctuary merging raw organic textures with refined modern luxury. Hand-carved Bhutanese motifs and panoramic valley views.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('madman');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Resort &middot; Interior Design</p><h3 class="pc-label-name">Madman Lounge &amp; Resort</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('zola')">
+      <div class="pc-img"><div class="pc-img-bg pci5"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Bar &amp; Lounge &mdash; Hyderabad</p>
+          <h3 class="pc-overlay-title">ZOLA</h3>
+          <p class="pc-overlay-desc">Sky lounge merging mid-century eclecticism with ultra-luxurious sophistication. Terrazzo bar island, fluted panels and breathtaking city views.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('zola');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Bar &amp; Lounge &middot; Interior Design</p><h3 class="pc-label-name">ZOLA</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('spice')">
+      <div class="pc-img"><div class="pc-img-bg pci6"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Restaurant &mdash; Nainital, Uttrakhand</p>
+          <h3 class="pc-overlay-title">The Spice Route</h3>
+          <p class="pc-overlay-desc">Elegant culinary haven in the hills with sweeping timber arches, woven cane seating and panoramic valley views through massive glass windows.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('spice');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Restaurant &middot; Interior Design</p><h3 class="pc-label-name">The Spice Route</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="commercial" onclick="openProjectCarousel('tulips')">
+      <div class="pc-img"><div class="pc-img-bg pci7"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Banquet Hall &mdash; GT Road, Kundli</p>
+          <h3 class="pc-overlay-title">Red Tulips</h3>
+          <p class="pc-overlay-desc">Grand banquet hall with sweeping crystal chandeliers, intricate geometric marble flooring and a sophisticated curved emerald bar.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('tulips');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Banquet Hall &middot; Interior Design</p><h3 class="pc-label-name">Red Tulips</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="commercial" onclick="openProjectCarousel('supreme')">
+      <div class="pc-img"><div class="pc-img-bg pci8"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Co-working &mdash; Gurgaon</p>
+          <h3 class="pc-overlay-title">Supreme Workspace</h3>
+          <p class="pc-overlay-desc">Vibrant transformation of the modern office. Primary colour accents, curved glass architecture and integrated biophilia sparking creativity.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('supreme');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Co-working &middot; Interior Design</p><h3 class="pc-label-name">Supreme Workspace</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="resort" onclick="openProjectCarousel('madrest')">
+      <div class="pc-img"><div class="pc-img-bg pci9"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Resort Restaurant &mdash; Punakha, Bhutan</p>
+          <h3 class="pc-overlay-title">Madman Restaurant</h3>
+          <p class="pc-overlay-desc">Immersive culinary destination celebrating Bhutanese craftsmanship. Hand-painted pillars, thangka tapestries and Himalayan peak views.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('madrest');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Resort &middot; Interior Design</p><h3 class="pc-label-name">Madman Restaurant</h3></div>
+    </div>
+
+    <div class="proj-card" data-cat="fnb" onclick="openProjectCarousel('bois')">
+      <div class="pc-img"><div class="pc-img-bg pci10"></div>
+        <div class="pc-overlay">
+          <p class="pc-overlay-cat">Bar &amp; Lounge &mdash; Mahajanga, Madagascar</p>
+          <h3 class="pc-overlay-title">Bois Blanc</h3>
+          <p class="pc-overlay-desc">Enchanted tropical speakeasy. Live-edge solid timber bar, botanical ceiling with cascading vines and woven basket pendants.</p>
+          <a href="#" class="pc-overlay-link" onclick="openProjectCarousel('bois');return false;">View Project</a>
+        </div>
+      </div>
+      <div class="pc-label"><p class="pc-label-cat">Bar &amp; Lounge &middot; Interior Design</p><h3 class="pc-label-name">Bois Blanc</h3></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="SDG Design Group" style="height:40px;width:auto;display:block;margin-bottom:16px;object-fit:contain;">
+      <p>Architecture &amp; Interior Design for hospitality and commercial projects across India since 1999.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="Facebook">fb</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>About</h4><a href="about.html">The People</a><a href="brands.html">Brands</a><a href="clients.html">Our Clients</a><a href="awards.html">Awards</a></div>
+    <div class="footer-col"><h4>Services</h4><a href="interior-design.html">Interior Design</a><a href="architecture.html" class="active">Architecture</a><a href="studios.html">Our Studios</a><a href="careers.html">Careers</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="dark_gold.html#contact">Get in Touch</a><a href="studios.html">Our Locations</a><a href="#">Press</a><a href="#">Instagram</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 SDG Design Group. All Rights Reserved.</span>
+    <span>Delhi &middot; Mumbai &middot; Bangalore &middot; Hyderabad</span>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
+
+<div id="carouselModal" class="carousel-modal" role="dialog" aria-modal="true">
+  <button class="carousel-close" onclick="closeCarousel()" aria-label="Close">&times;</button>
+  <button class="carousel-prev" onclick="shiftSlide(-1)" aria-label="Previous">&#8249;</button>
+  <div class="carousel-img-wrap"><img id="carouselImg" src="" alt="Project image"></div>
+  <button class="carousel-next" onclick="shiftSlide(1)" aria-label="Next">&#8250;</button>
+  <div class="carousel-caption" id="carouselCaption"></div>
+  <div class="carousel-counter"><span id="carouselCur">1</span> / <span id="carouselTotal">1</span></div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About Us</a>
+  <a href="interior-design.html">Interior Design</a>
+  <a href="architecture.html" class="active">Architecture</a>
+  <a href="studios.html">Our Studios</a>
+  <a href="careers.html">Careers</a>
+  <a href="dark_gold.html#contact">Contact</a>
+</div>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);});
+const navToggle=document.querySelector('.nav-toggle');
+const mobileMenu=document.getElementById('mobileMenu');
+navToggle.addEventListener('click',()=>{const open=mobileMenu.classList.toggle('open');navToggle.classList.toggle('open',open);});
+function filterProj(btn,cat){document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.proj-card').forEach(card=>{const show=cat==='all'||card.dataset.cat===cat;card.style.display=show?'':'none';});}
+const carouselSets={ace:{images:[{src:'images/proj1.jpg',cap:'Carlton Suite'},{src:'images/ace2.jpg',cap:'Casa Nova Suite'},{src:'images/ace3.jpg',cap:'Front Desk'},{src:'images/ace4.jpg',cap:'Hotel Passage'}]},oasis:{images:[{src:'images/proj2.jpg',cap:'Reception Lobby'},{src:'images/oasis2.jpg',cap:'Lounge Enclave'}]},madman:{images:[{src:'images/proj3.jpg',cap:'Suite Interior'},{src:'images/hero3.jpg',cap:'Resort Overview'},{src:'images/madman3.jpg',cap:'Himalayan View'},{src:'images/madman4.jpg',cap:'Private Balcony'}]},madrest:{images:[{src:'images/proj9.jpg',cap:'Alpine Dining Hall'},{src:'images/news2.jpg',cap:'Restaurant Interior'}]},angaar:{images:[{src:'images/proj4.jpg',cap:'Restaurant Interior'},{src:'images/insta6.jpg',cap:'Bar Detail'}]},zola:{images:[{src:'images/proj5.jpg',cap:'Lounge Interior'},{src:'images/zola2.jpg',cap:'Bar Counter'},{src:'images/zola3.jpg',cap:'Seating Area'}]},spice:{images:[{src:'images/proj6.jpg',cap:'Main Dining Hall'},{src:'images/spice2.jpg',cap:'Timber Arch'},{src:'images/spice3.jpg',cap:'Valley View'},{src:'images/hero2.jpg',cap:'Overview'}]},tulips:{images:[{src:'images/proj7.jpg',cap:'Grand Banquet Hall'},{src:'images/tulips2.jpg',cap:'Crystal Chandeliers'},{src:'images/tulips3.jpg',cap:'Seating Alcoves'}]},supreme:{images:[{src:'images/proj8.jpg',cap:'Co-working Floor'},{src:'images/supreme2.jpg',cap:'Breakout Zone'},{src:'images/studio4.jpg',cap:'Collaboration Area'}]},bois:{images:[{src:'images/proj10.jpg',cap:'Tropical Speakeasy'},{src:'images/bois2.jpg',cap:'Live-Edge Bar'},{src:'images/news1.jpg',cap:'Botanical Ceiling'}]}};
+let curSet=[],curIdx=0;
+function openProjectCarousel(key){const set=carouselSets[key];if(!set)return;curSet=set.images;curIdx=0;buildDots();loadSlide(0);document.getElementById('carouselModal').classList.add('open');document.body.style.overflow='hidden';}
+function closeCarousel(){document.getElementById('carouselModal').classList.remove('open');document.body.style.overflow='';}
+function buildDots(){const wrap=document.getElementById('carouselDots');wrap.innerHTML='';curSet.forEach((_,i)=>{const d=document.createElement('button');d.className='carousel-dot'+(i===0?' active':'');d.onclick=()=>loadSlide(i);wrap.appendChild(d);});}
+function loadSlide(idx){const img=document.getElementById('carouselImg');img.classList.add('fading');setTimeout(()=>{img.src=curSet[idx].src;img.onload=()=>img.classList.remove('fading');document.getElementById('carouselCaption').textContent=curSet[idx].cap;document.getElementById('carouselCur').textContent=idx+1;document.getElementById('carouselTotal').textContent=curSet.length;document.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));curIdx=idx;},200);}
+function shiftSlide(dir){let next=curIdx+dir;if(next<0)next=curSet.length-1;if(next>=curSet.length)next=0;loadSlide(next);}
+document.addEventListener('keydown',e=>{const modal=document.getElementById('carouselModal');if(!modal.classList.contains('open'))return;if(e.key==='Escape')closeCarousel();if(e.key==='ArrowLeft')shiftSlide(-1);if(e.key==='ArrowRight')shiftSlide(1);});
+document.getElementById('carouselModal').addEventListener('click',function(e){if(e.target===this)closeCarousel();});
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');revealObserver.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll('.proj-card').forEach(el=>{el.classList.add('reveal-ready');revealObserver.observe(el);});
+</script>
+</body>
+</html>
