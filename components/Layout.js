@@ -64,6 +64,9 @@ export default function Layout({ title, children }) {
 
       <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
         <a href="/about" onClick={() => setMobileOpen(false)}>About Us</a>
+        <a href="/brands" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Brands</a>
+        <a href="/clients" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Our Clients</a>
+        <a href="/awards" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Awards</a>
         <a href="/interior-design" onClick={() => setMobileOpen(false)}>Interior Design</a>
         <a href="/architecture" onClick={() => setMobileOpen(false)}>Architecture</a>
         <a href="/studios" onClick={() => setMobileOpen(false)}>Our Studios</a>

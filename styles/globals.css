@@ -779,7 +779,7 @@ footer{
 @media(max-width:768px){
   :root{--nav-h:62px}
   .nav-right{display:none}
-  .nav-toggle{display:flex}
+  .nav-toggle{display:flex;margin-left:auto}
   .hero{grid-template-columns:1fr;height:auto}
   .hero-panel{height:280px}
   .hero-panel:not(:last-child)::after{display:none}
@@ -1131,7 +1131,7 @@ footer{background:var(--black);border-top:1px solid var(--linelight);padding:60p
 @media(max-width:768px){
   :root{--nav-h:62px}
   .nav-right{display:none}
-  .nav-toggle{display:flex}
+  .nav-toggle{display:flex;margin-left:auto}
   .section-hdr,.proj-filters,.proj-grid,.jobs-section,.awards-section,.team-section,.pending-notice{padding-left:24px;padding-right:24px}
   .proj-grid{grid-template-columns:1fr 1fr}
   .connect{grid-template-columns:1fr;gap:50px;padding:60px 24px}
