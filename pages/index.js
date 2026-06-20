@@ -257,7 +257,7 @@ export default function Home() {
           <li><a href="/careers">Careers</a></li>
         </ul>
         <button
-          className="nav-toggle"
+          className={`nav-toggle${mobileMenuOpen ? ' open' : ''}`}
           aria-label="Menu"
           onClick={() => setMobileMenuOpen((o) => !o)}
         >
@@ -268,6 +268,9 @@ export default function Home() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`} id="mobileMenu">
         <a href="/about" onClick={() => setMobileMenuOpen(false)}>About Us</a>
+        <a href="/brands" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Brands</a>
+        <a href="/clients" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Our Clients</a>
+        <a href="/awards" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Awards</a>
         <a href="/interior-design" onClick={() => setMobileMenuOpen(false)}>Interior Design</a>
         <a href="/architecture" onClick={() => setMobileMenuOpen(false)}>Architecture</a>
         <a href="/studios" onClick={() => setMobileMenuOpen(false)}>Our Studios</a>
@@ -309,25 +312,6 @@ export default function Home() {
             <div className="hero-badge-inner">
               <div className="yr">9</div>
               <div className="yr-lbl">Years</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MAGAZINE STRIP */}
-      <section className="mag-strip">
-        <div className="mag-left">
-          <p className="mag-eyebrow">Featured Project</p>
-          <h2 className="mag-title">Madman Lounge<br />&amp; Resort, Bhutan</h2>
-          <p className="mag-body">A serene sanctuary that beautifully honours its breathtaking setting in Punakha, Bhutan. Merging raw, organic textures with refined modern luxury — floor-to-ceiling timber paneling, hand-carved Bhutanese motifs, and panoramic Himalayan views that capture the quiet soul of the valley.</p>
-          <a href="#" className="mag-cta" onClick={(e) => { e.preventDefault(); openCarousel('madman'); }}>Explore Project &rarr;</a>
-        </div>
-        <div className="mag-right">
-          <div className="mag-cover" onClick={() => openCarousel('madman')} style={{ cursor: 'pointer' }}>
-            <div className="mag-cover-inner"></div>
-            <div className="mag-cover-label">
-              <h4>Madman Lounge &amp; Resort</h4>
-              <p>Punakha, Bhutan &mdash; Resort &amp; Interior Design</p>
             </div>
           </div>
         </div>
@@ -518,22 +502,6 @@ export default function Home() {
               <p className="oa-detail">Shokeen Design Group<br />Main Najafgarh Bahadurgarh Road<br />Mahesh Garden, Najafgarh<br />New Delhi &mdash; 110043</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* INSTAGRAM STRIP */}
-      <section className="insta-section">
-        <div className="insta-header">
-          <h3>Follow us on Instagram</h3>
-          <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer">@shokeendesigngroup &rarr;</a>
-        </div>
-        <div className="insta-grid">
-          {['it1','it2','it3','it4','it5','it6'].map((cls) => (
-            <div key={cls} className="insta-thumb">
-              <div className={`insta-thumb-bg ${cls}`}></div>
-              <div className="insta-thumb-overlay"><span>+</span></div>
-            </div>
-          ))}
         </div>
       </section>
 
