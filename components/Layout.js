@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ConsultationButton from './ConsultationButton';
+import Cursor from './Cursor';
 
 export default function Layout({ title, children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,18 +22,23 @@ export default function Layout({ title, children }) {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); }
+        if (e.isIntersecting) {
+          const delay = parseFloat(e.target.dataset.delay || 0) * 1000;
+          setTimeout(() => e.target.classList.add('revealed'), delay);
+          obs.unobserve(e.target);
+        }
       }),
-      { threshold: 0.1 }
+      { threshold: 0.12 }
     );
-    document.querySelectorAll('.reveal-ready').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    document.querySelectorAll('.reveal-ready,.reveal-left,.reveal-scale').forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   return (
     <>
+      <Cursor />
       <Head>
         <title>{title || 'Shokeen Design Group'}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import ConsultationButton from '../components/ConsultationButton';
+import Preloader from '../components/Preloader';
+import Cursor from '../components/Cursor';
 
 const carouselSets = {
   interior: {
@@ -192,26 +194,36 @@ export default function Home() {
     return () => document.removeEventListener('keydown', handleKeydown);
   }, [carouselOpen, closeCarousel, shiftSlide]);
 
-  /* Scroll reveal */
+  /* Scroll reveal + stat counter */
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
+    function animateStat(el) {
+      const target = parseFloat(el.dataset.target);
+      const dec = parseInt(el.dataset.decimal || 0);
+      const dur = 1600;
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - t0) / dur, 1);
+        const v = target * (1 - Math.pow(1 - p, 3));
+        el.textContent = dec ? v.toFixed(dec) : Math.floor(v);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const delay = parseFloat(e.target.dataset.delay || 0) * 1000;
+          setTimeout(() => {
             e.target.classList.add('revealed');
-            observer.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
+            e.target.querySelectorAll('.stat-count').forEach(animateStat);
+          }, delay);
+          obs.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.15 }
     );
-    document.querySelectorAll(
-      '.stat-item,.news-item,.studio-item,.j-photo,.office-item,.news-list-item,.client-chip'
-    ).forEach((el) => {
-      el.classList.add('reveal-ready');
-      observer.observe(el);
-    });
-    return () => observer.disconnect();
+    document.querySelectorAll('.reveal-ready,.reveal-left,.reveal-scale').forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   /* Auto-play carousel */
@@ -237,6 +249,8 @@ export default function Home() {
 
   return (
     <>
+      <Preloader />
+      <Cursor />
       <Head>
         <title>Shokeen Design Group - Architecture &amp; Interior Design Services</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -319,47 +333,47 @@ export default function Home() {
       {/* THE JOURNEY */}
       <section className="journey">
         <div className="journey-left">
-          <div className="j-photo jp1"><div className="j-photo-inner"></div></div>
-          <div className="j-photo jp2"><div className="j-photo-inner"></div></div>
-          <div className="j-photo jp3"><div className="j-photo-inner"></div></div>
-          <div className="j-photo jp4"><div className="j-photo-inner"></div></div>
-          <div className="j-photo jp5"><div className="j-photo-inner"></div></div>
+          <div className="j-photo jp1 reveal-scale" data-delay="0"><div className="j-photo-inner"></div></div>
+          <div className="j-photo jp2 reveal-scale" data-delay="0.1"><div className="j-photo-inner"></div></div>
+          <div className="j-photo jp3 reveal-scale" data-delay="0.2"><div className="j-photo-inner"></div></div>
+          <div className="j-photo jp4 reveal-scale" data-delay="0.15"><div className="j-photo-inner"></div></div>
+          <div className="j-photo jp5 reveal-scale" data-delay="0.25"><div className="j-photo-inner"></div></div>
         </div>
         <div className="journey-right">
-          <p className="j-eyebrow">Our Story</p>
-          <h2 className="j-title">The Journey</h2>
+          <p className="j-eyebrow reveal-left">Our Story</p>
+          <h2 className="j-title reveal-ready">The Journey</h2>
           <div className="j-body">
-            <p>Since 2018, Shokeen Design Group has grown from a passionate vision into one of Delhi&apos;s most trusted design studios, completing 300+ projects spanning over 2.5 lakh square feet of thoughtfully crafted spaces.</p>
-            <p>Founded by Inderjeet Shokeen (Victor) and led by CEO Ankit Shokeen, SDG&apos;s design philosophy is rooted in the belief that great spaces should not just look beautiful — they must feel right. Every project is an exploration of function, culture, and detail.</p>
-            <p>Our team of Architects and Interior Designers share one guiding ideology: that extraordinary design is never a coincidence — it is the result of conviction, collaboration, and an unwavering attention to the details that matter most.</p>
+            <p className="reveal-ready" data-delay="0.1">Since 2018, Shokeen Design Group has grown from a passionate vision into one of Delhi&apos;s most trusted design studios, completing 300+ projects spanning over 2.5 lakh square feet of thoughtfully crafted spaces.</p>
+            <p className="reveal-ready" data-delay="0.2">Founded by Inderjeet Shokeen (Victor) and led by CEO Ankit Shokeen, SDG&apos;s design philosophy is rooted in the belief that great spaces should not just look beautiful — they must feel right. Every project is an exploration of function, culture, and detail.</p>
+            <p className="reveal-ready" data-delay="0.3">Our team of Architects and Interior Designers share one guiding ideology: that extraordinary design is never a coincidence — it is the result of conviction, collaboration, and an unwavering attention to the details that matter most.</p>
           </div>
-          <a href="#" className="j-cta">Know More About Us &rarr;</a>
+          <a href="#" className="j-cta reveal-ready" data-delay="0.35">Know More About Us &rarr;</a>
         </div>
       </section>
 
       {/* STATS BAR */}
       <div className="stats-bar">
-        <div className="stat-item">
-          <div className="stat-num">300<span>+</span></div>
+        <div className="stat-item reveal-ready" data-delay="0">
+          <div className="stat-num"><span className="stat-count" data-target="300" data-decimal="0">300</span><span>+</span></div>
           <div className="stat-lbl">Projects Completed</div>
         </div>
-        <div className="stat-item">
-          <div className="stat-num">9</div>
+        <div className="stat-item reveal-ready" data-delay="0.12">
+          <div className="stat-num"><span className="stat-count" data-target="9" data-decimal="0">9</span></div>
           <div className="stat-lbl">Years of Excellence</div>
         </div>
-        <div className="stat-item">
-          <div className="stat-num">25</div>
+        <div className="stat-item reveal-ready" data-delay="0.24">
+          <div className="stat-num"><span className="stat-count" data-target="25" data-decimal="0">25</span></div>
           <div className="stat-lbl">Team Members</div>
         </div>
-        <div className="stat-item">
-          <div className="stat-num">2.5<span>L</span></div>
+        <div className="stat-item reveal-ready" data-delay="0.36">
+          <div className="stat-num"><span className="stat-count" data-target="2.5" data-decimal="1">2.5</span><span>L</span></div>
           <div className="stat-lbl">Sq. Ft. Designed</div>
         </div>
       </div>
 
       {/* PROJECT GRID */}
       <section>
-        <div className="section-hdr">
+        <div className="section-hdr reveal-ready">
           <div className="section-hdr-left">
             <p className="sh-eyebrow">Our Work</p>
             <h2 className="sh-title">Selected <em>Projects</em></h2>
@@ -397,11 +411,12 @@ export default function Home() {
             { key: 'bois', cat: 'fnb', featured: false, loc: 'Bar & Lounge — Madagascar', title: 'Bois Blanc', sub: 'Bar & Lounge · Interior Design', imgCls: 'pci10' },
           ]
             .filter((p) => filterCat === 'all' || p.cat === filterCat)
-            .map((p) => (
+            .map((p, i) => (
               <div
                 key={p.key}
-                className={`proj-card${p.featured ? ' featured' : ''}`}
+                className={`proj-card${p.featured ? ' featured' : ''} reveal-ready`}
                 data-cat={p.cat}
+                data-delay={String((i % 3) * 0.12)}
                 onClick={() => openCarousel(p.key)}
               >
                 <div className="pc-img">
@@ -423,7 +438,7 @@ export default function Home() {
 
       {/* EXCELLENCE */}
       <section className="excellence">
-        <div className="exc-left">
+        <div className="exc-left reveal-ready">
           <p className="j-eyebrow">About Us</p>
           <h2>9 Years of<br />Design Excellence</h2>
           <p>Shokeen Design Group has established a distinctive presence across India, with award-winning projects spanning luxury city hotels, mountain resorts, destination restaurants, sky lounges, banquet halls, and innovative co-working spaces.</p>
@@ -437,7 +452,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="exc-right">
+        <div className="exc-right reveal-ready" data-delay="0.15">
           <h3>Our Studios</h3>
           <ul className="office-list" id="studios">
             <li className="office-item">
@@ -453,7 +468,7 @@ export default function Home() {
 
       {/* CONTACT */}
       <section className="connect" id="contact">
-        <div className="conn-left">
+        <div className="conn-left reveal-ready">
           <h2>Connect<br />With Us</h2>
           <p>We would love to hear about your project. Please complete the form and one of our team members will be in touch shortly.</p>
           <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
@@ -493,7 +508,7 @@ export default function Home() {
             </div>
           </form>
         </div>
-        <div className="conn-right">
+        <div className="conn-right reveal-ready" data-delay="0.15">
           <h3>Our Offices</h3>
           <div className="office-addresses">
             <div className="oa-item">
@@ -505,7 +520,7 @@ export default function Home() {
       </section>
 
       {/* NEWSLETTER */}
-      <section className="newsletter-section">
+      <section className="newsletter-section reveal-ready">
         <div className="newsletter-inner">
           <div>
             <p className="nl-eyebrow">Stay Inspired</p>
