@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import ConsultationButton from './ConsultationButton';
 
 export default function Layout({ title, children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -43,15 +44,6 @@ export default function Layout({ title, children }) {
           <a href="/"><img src="/images/logo.png" alt="Shokeen Design Group" /></a>
         </div>
         <ul className="nav-right">
-          <li className="has-drop">
-            <a href="/about" className={isActive('/about') ? 'active' : ''}>About Us</a>
-            <ul className="drop-menu">
-              <li><a href="/about">The People</a></li>
-              <li><a href="/brands">Brands</a></li>
-              <li><a href="/clients">Our Clients</a></li>
-              <li><a href="/awards">Awards</a></li>
-            </ul>
-          </li>
           <li><a href="/interior-design" className={isActive('/interior-design') ? 'active' : ''}>Interior Design</a></li>
           <li><a href="/architecture" className={isActive('/architecture') ? 'active' : ''}>Architecture</a></li>
           <li><a href="/studios" className={isActive('/studios') ? 'active' : ''}>Our Studios</a></li>
@@ -63,14 +55,12 @@ export default function Layout({ title, children }) {
       </nav>
 
       <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
-        <a href="/about" onClick={() => setMobileOpen(false)}>About Us</a>
-        <a href="/brands" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Brands</a>
-        <a href="/clients" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Our Clients</a>
-        <a href="/awards" onClick={() => setMobileOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Awards</a>
         <a href="/interior-design" onClick={() => setMobileOpen(false)}>Interior Design</a>
         <a href="/architecture" onClick={() => setMobileOpen(false)}>Architecture</a>
         <a href="/studios" onClick={() => setMobileOpen(false)}>Our Studios</a>
         <a href="/careers" onClick={() => setMobileOpen(false)}>Careers</a>
+        <a href="/brands" onClick={() => setMobileOpen(false)}>Brands</a>
+        <a href="/clients" onClick={() => setMobileOpen(false)}>Our Clients</a>
         <a href="/#contact" onClick={() => setMobileOpen(false)}>Contact</a>
       </div>
 
@@ -88,25 +78,23 @@ export default function Layout({ title, children }) {
             </div>
           </div>
           <div className="footer-col">
-            <h4>About</h4>
-            <a href="/about">The People</a>
+            <h4>Company</h4>
+            <a href="/studios">Our Studio</a>
             <a href="/brands">Brands</a>
             <a href="/clients">Our Clients</a>
-            <a href="/awards">Awards</a>
           </div>
           <div className="footer-col">
             <h4>Services</h4>
             <a href="/interior-design">Interior Design</a>
             <a href="/architecture">Architecture</a>
-            <a href="/studios">Our Studios</a>
             <a href="/careers">Careers</a>
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
             <a href="/#contact">Get in Touch</a>
-            <a href="/studios">Our Locations</a>
-            <a href="#">Press</a>
+            <a href="/studios">Our Studio</a>
             <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
         <div className="footer-bottom">
@@ -116,6 +104,7 @@ export default function Layout({ title, children }) {
       </footer>
 
       <button className="back-top" id="backTop" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">&#8593;</button>
+      <ConsultationButton />
     </>
   );
 }

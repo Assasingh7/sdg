@@ -32,6 +32,7 @@ export default function ProjectGrid() {
   const [carouselSet, setCarouselSet] = useState([]);
   const [carouselIdx, setCarouselIdx] = useState(0);
   const [fading, setFading] = useState(false);
+  const [autoKey, setAutoKey] = useState(0);
 
   const openCarousel = useCallback((key) => {
     const set = carouselSets[key];
@@ -39,6 +40,7 @@ export default function ProjectGrid() {
     setCarouselSet(set.images);
     setCarouselIdx(0);
     setFading(false);
+    setAutoKey(0);
     setCarouselOpen(true);
     document.body.style.overflow = 'hidden';
   }, []);
@@ -50,8 +52,20 @@ export default function ProjectGrid() {
 
   const shiftSlide = useCallback((dir) => {
     setFading(true);
+    setAutoKey((k) => k + 1);
     setTimeout(() => setCarouselIdx((p) => ((p + dir) + carouselSet.length) % carouselSet.length), 200);
-  }, [carouselSet]);
+  }, [carouselSet.length]);
+
+  /* Auto-play: advances every 4.5s, resets when user manually navigates */
+  useEffect(() => {
+    if (!carouselOpen || carouselSet.length <= 1) return;
+    const len = carouselSet.length;
+    const t = setInterval(() => {
+      setFading(true);
+      setTimeout(() => setCarouselIdx((p) => (p + 1) % len), 200);
+    }, 4500);
+    return () => clearInterval(t);
+  }, [carouselOpen, carouselSet.length, autoKey]);
 
   useEffect(() => {
     const handler = (e) => {

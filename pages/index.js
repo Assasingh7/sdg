@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
+import ConsultationButton from '../components/ConsultationButton';
 
 const carouselSets = {
   interior: {
@@ -134,6 +135,7 @@ export default function Home() {
   const [carouselSet, setCarouselSet] = useState([]);
   const [carouselIdx, setCarouselIdx] = useState(0);
   const [carouselFading, setCarouselFading] = useState(false);
+  const [autoKey, setAutoKey] = useState(0);
 
   const openCarousel = useCallback((key) => {
     const set = carouselSets[key];
@@ -141,6 +143,7 @@ export default function Home() {
     setCarouselSet(set.images);
     setCarouselIdx(0);
     setCarouselFading(false);
+    setAutoKey(0);
     setCarouselOpen(true);
     document.body.style.overflow = 'hidden';
   }, []);
@@ -152,19 +155,19 @@ export default function Home() {
 
   const shiftSlide = useCallback((dir) => {
     setCarouselFading(true);
+    setAutoKey((k) => k + 1);
     setTimeout(() => {
       setCarouselIdx((prev) => {
         const len = carouselSet.length;
         return ((prev + dir) + len) % len;
       });
     }, 200);
-  }, [carouselSet]);
+  }, [carouselSet.length]);
 
   const goToSlide = useCallback((idx) => {
     setCarouselFading(true);
-    setTimeout(() => {
-      setCarouselIdx(idx);
-    }, 200);
+    setAutoKey((k) => k + 1);
+    setTimeout(() => setCarouselIdx(idx), 200);
   }, []);
 
   /* Nav scroll + back-to-top */
@@ -213,6 +216,17 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  /* Auto-play carousel */
+  useEffect(() => {
+    if (!carouselOpen || carouselSet.length <= 1) return;
+    const len = carouselSet.length;
+    const t = setInterval(() => {
+      setCarouselFading(true);
+      setTimeout(() => setCarouselIdx((p) => (p + 1) % len), 200);
+    }, 4500);
+    return () => clearInterval(t);
+  }, [carouselOpen, carouselSet.length, autoKey]);
+
   /* Form select label */
   useEffect(() => {
     document.querySelectorAll('.form-group select').forEach((sel) => {
@@ -242,15 +256,6 @@ export default function Home() {
           </a>
         </div>
         <ul className="nav-right">
-          <li className="has-drop">
-            <a href="/about">About Us</a>
-            <ul className="drop-menu">
-              <li><a href="/about">The People</a></li>
-              <li><a href="/brands">Brands</a></li>
-              <li><a href="/clients">Our Clients</a></li>
-              <li><a href="/awards">Awards</a></li>
-            </ul>
-          </li>
           <li><a href="/interior-design">Interior Design</a></li>
           <li><a href="/architecture">Architecture</a></li>
           <li><a href="/studios">Our Studios</a></li>
@@ -267,14 +272,12 @@ export default function Home() {
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`} id="mobileMenu">
-        <a href="/about" onClick={() => setMobileMenuOpen(false)}>About Us</a>
-        <a href="/brands" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Brands</a>
-        <a href="/clients" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Our Clients</a>
-        <a href="/awards" onClick={() => setMobileMenuOpen(false)} style={{ paddingLeft: '20px', fontSize: '10px', opacity: 0.65, letterSpacing: '2px' }}>Awards</a>
         <a href="/interior-design" onClick={() => setMobileMenuOpen(false)}>Interior Design</a>
         <a href="/architecture" onClick={() => setMobileMenuOpen(false)}>Architecture</a>
         <a href="/studios" onClick={() => setMobileMenuOpen(false)}>Our Studios</a>
         <a href="/careers" onClick={() => setMobileMenuOpen(false)}>Careers</a>
+        <a href="/brands" onClick={() => setMobileMenuOpen(false)}>Brands</a>
+        <a href="/clients" onClick={() => setMobileMenuOpen(false)}>Our Clients</a>
         <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>
       </div>
 
@@ -505,6 +508,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEWSLETTER */}
+      <section className="newsletter-section">
+        <div className="newsletter-inner">
+          <div>
+            <p className="nl-eyebrow">Stay Inspired</p>
+            <h3 className="nl-title">Design Insights &amp; Project Updates</h3>
+          </div>
+          <form
+            className="nl-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const email = e.target.nlemail.value;
+              window.open(`mailto:info@shokeendesigngroup.com?subject=Newsletter Subscription&body=Please add me to your mailing list.%0A%0AEmail: ${email}`, '_blank');
+            }}
+          >
+            <input type="email" name="nlemail" className="nl-input" placeholder="Your email address" required />
+            <button type="submit" className="nl-btn">Subscribe</button>
+          </form>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer>
         <div className="footer-top">
@@ -518,25 +542,23 @@ export default function Home() {
             </div>
           </div>
           <div className="footer-col">
-            <h4>About</h4>
-            <a href="/about">The People</a>
+            <h4>Company</h4>
+            <a href="/studios">Our Studio</a>
             <a href="/brands">Brands</a>
             <a href="/clients">Our Clients</a>
-            <a href="/awards">Awards</a>
           </div>
           <div className="footer-col">
             <h4>Services</h4>
             <a href="/interior-design">Interior Design</a>
             <a href="/architecture">Architecture</a>
-            <a href="/studios">Our Studios</a>
-            <a href="/careers" id="careers">Careers</a>
+            <a href="/careers">Careers</a>
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
             <a href="#contact">Get in Touch</a>
-            <a href="/studios">Our Locations</a>
-            <a href="#">Press</a>
+            <a href="/studios">Our Studio</a>
             <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
         <div className="footer-bottom">
@@ -554,6 +576,8 @@ export default function Home() {
       >
         &#8593;
       </button>
+
+      <ConsultationButton />
 
       {/* CAROUSEL MODAL */}
       {carouselOpen && (
