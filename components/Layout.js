@@ -67,7 +67,9 @@ export default function Layout({ title, children }) {
       <footer>
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px', objectFit: 'contain' }} />
+            <div className="footer-logo-wrap">
+              <img src="/images/logo.png" alt="Shokeen Design Group" />
+            </div>
             <p>Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
               <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
