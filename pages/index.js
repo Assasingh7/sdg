@@ -170,13 +170,11 @@ export default function Home() {
     setTimeout(() => setCarouselIdx(idx), 200);
   }, []);
 
-  /* Nav scroll + back-to-top */
+  /* Nav scroll */
   useEffect(() => {
     const handleScroll = () => {
       const nav = document.getElementById('mainNav');
-      const backTop = document.getElementById('backTop');
       if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
-      if (backTop) backTop.classList.toggle('visible', window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -563,16 +561,6 @@ export default function Home() {
           <span>Najafgarh, New Delhi &middot; India</span>
         </div>
       </footer>
-
-      {/* BACK TO TOP */}
-      <button
-        className="back-top"
-        id="backTop"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-      >
-        &#8593;
-      </button>
 
       <ConsultationButton />
 

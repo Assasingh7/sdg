@@ -100,7 +100,6 @@ export default function Layout({ title, children }) {
         </div>
       </footer>
 
-      <button className="back-top" id="backTop" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">&#8593;</button>
       <ConsultationButton />
     </>
   );
