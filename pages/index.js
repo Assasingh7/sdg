@@ -256,8 +256,7 @@ export default function Home() {
           </a>
         </div>
         <ul className="nav-right">
-          <li><a href="/interior-design">Interior Design</a></li>
-          <li><a href="/architecture">Architecture</a></li>
+          <li><a href="/projects">Projects</a></li>
           <li><a href="/studios">Our Studios</a></li>
           <li><a href="/careers">Careers</a></li>
         </ul>
@@ -272,8 +271,7 @@ export default function Home() {
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`} id="mobileMenu">
-        <a href="/interior-design" onClick={() => setMobileMenuOpen(false)}>Interior Design</a>
-        <a href="/architecture" onClick={() => setMobileMenuOpen(false)}>Architecture</a>
+        <a href="/projects" onClick={() => setMobileMenuOpen(false)}>Projects</a>
         <a href="/studios" onClick={() => setMobileMenuOpen(false)}>Our Studios</a>
         <a href="/careers" onClick={() => setMobileMenuOpen(false)}>Careers</a>
         <a href="/brands" onClick={() => setMobileMenuOpen(false)}>Brands</a>
@@ -549,8 +547,7 @@ export default function Home() {
           </div>
           <div className="footer-col">
             <h4>Services</h4>
-            <a href="/interior-design">Interior Design</a>
-            <a href="/architecture">Architecture</a>
+            <a href="/projects">Projects</a>
             <a href="/careers">Careers</a>
           </div>
           <div className="footer-col">

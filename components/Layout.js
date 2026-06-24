@@ -44,8 +44,7 @@ export default function Layout({ title, children }) {
           <a href="/"><img src="/images/logo.png" alt="Shokeen Design Group" /></a>
         </div>
         <ul className="nav-right">
-          <li><a href="/interior-design" className={isActive('/interior-design') ? 'active' : ''}>Interior Design</a></li>
-          <li><a href="/architecture" className={isActive('/architecture') ? 'active' : ''}>Architecture</a></li>
+          <li><a href="/projects" className={isActive('/projects') ? 'active' : ''}>Projects</a></li>
           <li><a href="/studios" className={isActive('/studios') ? 'active' : ''}>Our Studios</a></li>
           <li><a href="/careers" className={isActive('/careers') ? 'active' : ''}>Careers</a></li>
         </ul>
@@ -55,8 +54,7 @@ export default function Layout({ title, children }) {
       </nav>
 
       <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
-        <a href="/interior-design" onClick={() => setMobileOpen(false)}>Interior Design</a>
-        <a href="/architecture" onClick={() => setMobileOpen(false)}>Architecture</a>
+        <a href="/projects" onClick={() => setMobileOpen(false)}>Projects</a>
         <a href="/studios" onClick={() => setMobileOpen(false)}>Our Studios</a>
         <a href="/careers" onClick={() => setMobileOpen(false)}>Careers</a>
         <a href="/brands" onClick={() => setMobileOpen(false)}>Brands</a>
@@ -85,8 +83,7 @@ export default function Layout({ title, children }) {
           </div>
           <div className="footer-col">
             <h4>Services</h4>
-            <a href="/interior-design">Interior Design</a>
-            <a href="/architecture">Architecture</a>
+            <a href="/projects">Projects</a>
             <a href="/careers">Careers</a>
           </div>
           <div className="footer-col">
