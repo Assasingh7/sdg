@@ -2,7 +2,11 @@ import Layout from '../components/Layout';
 
 export default function Brands() {
   return (
-    <Layout title="Brands — Shokeen Design Group">
+    <Layout
+      title="Partner Brands — Shokeen Design Group | Design & Specification Partners"
+      description="Shokeen Design Group's curated network of trusted architecture, furniture, lighting and material brands that help deliver exceptional design outcomes across every project."
+      canonical="https://www.shokeendesigngroup.com/brands"
+    >
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/images/insta1.jpg')" }}></div>
         <div className="page-hero-overlay"></div>

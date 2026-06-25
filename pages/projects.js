@@ -3,7 +3,11 @@ import ProjectGrid from '../components/ProjectGrid';
 
 export default function Projects() {
   return (
-    <Layout title="Projects — Shokeen Design Group">
+    <Layout
+      title="Projects — Architecture & Interior Design | Shokeen Design Group"
+      description="Explore 300+ completed architecture and interior design projects by Shokeen Design Group — luxury hotels, Himalayan resorts, destination restaurants, sky lounges and commercial spaces across India."
+      canonical="https://www.shokeendesigngroup.com/projects"
+    >
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/images/hero2.jpg')" }}></div>
         <div className="page-hero-overlay"></div>

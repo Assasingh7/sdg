@@ -4,18 +4,24 @@ import { useRouter } from 'next/router';
 import ConsultationButton from './ConsultationButton';
 import Cursor from './Cursor';
 
-export default function Layout({ title, children }) {
+const SITE = 'https://www.shokeendesigngroup.com';
+const DEFAULT_DESC = 'Shokeen Design Group — Architecture & Interior Design firm in New Delhi, India. 300+ hospitality, F&B, commercial and residential projects since 2018.';
+const DEFAULT_IMG = `${SITE}/images/hero1.jpg`;
+
+export default function Layout({ title, description, canonical, ogImage, children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
 
   const isActive = (href) => router.pathname === href;
+  const pageTitle = title || 'Shokeen Design Group — Architecture & Interior Design';
+  const pageDesc = description || DEFAULT_DESC;
+  const pageUrl = canonical || `${SITE}${router.asPath}`;
+  const pageImg = ogImage || DEFAULT_IMG;
 
   useEffect(() => {
     const handleScroll = () => {
       const nav = document.getElementById('mainNav');
-      const backTop = document.getElementById('backTop');
       if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
-      if (backTop) backTop.classList.toggle('visible', window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -40,12 +46,33 @@ export default function Layout({ title, children }) {
     <>
       <Cursor />
       <Head>
-        <title>{title || 'Shokeen Design Group'}</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={pageUrl} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shokeen Design Group" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={pageImg} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDesc} />
+        <meta name="twitter:image" content={pageImg} />
+
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
       </Head>
 
-      <nav className="nav-wrap" id="mainNav">
+      <nav className="nav-wrap" id="mainNav" aria-label="Main navigation">
         <div className="nav-logo">
           <a href="/"><img src="/images/logo.png" alt="Shokeen Design Group" /></a>
         </div>
@@ -54,12 +81,12 @@ export default function Layout({ title, children }) {
           <li><a href="/studios" className={isActive('/studios') ? 'active' : ''}>Our Studios</a></li>
           <li><a href="/careers" className={isActive('/careers') ? 'active' : ''}>Careers</a></li>
         </ul>
-        <button className={`nav-toggle${mobileOpen ? ' open' : ''}`} aria-label="Menu" onClick={() => setMobileOpen((o) => !o)}>
+        <button className={`nav-toggle${mobileOpen ? ' open' : ''}`} aria-label="Open menu" onClick={() => setMobileOpen((o) => !o)}>
           <span></span><span></span><span></span>
         </button>
       </nav>
 
-      <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
+      <div className={`mobile-menu${mobileOpen ? ' open' : ''}`} aria-hidden={!mobileOpen}>
         <a href="/projects" onClick={() => setMobileOpen(false)}>Projects</a>
         <a href="/studios" onClick={() => setMobileOpen(false)}>Our Studios</a>
         <a href="/careers" onClick={() => setMobileOpen(false)}>Careers</a>
@@ -70,14 +97,14 @@ export default function Layout({ title, children }) {
 
       <main>{children}</main>
 
-      <footer>
+      <footer itemScope itemType="https://schema.org/Organization">
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
-            <p>Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
+            <img src="/images/logo.png" alt="Shokeen Design Group" itemProp="logo" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
+            <p itemProp="description">Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
-              <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
-              <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a>
+              <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn" itemProp="sameAs">in</a>
+              <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer noopener" aria-label="Instagram" itemProp="sameAs">ig</a>
               <a href="#" aria-label="Facebook">fb</a>
             </div>
           </div>
@@ -96,13 +123,15 @@ export default function Layout({ title, children }) {
             <h4>Contact</h4>
             <a href="/#contact">Get in Touch</a>
             <a href="/studios">Our Studio</a>
-            <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer noopener">Instagram</a>
+            <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
           </div>
         </div>
         <div className="footer-bottom">
           <span>&copy; 2026 Shokeen Design Group. All Rights Reserved.</span>
-          <span>Najafgarh, New Delhi &middot; India</span>
+          <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+            <span itemProp="addressLocality">Najafgarh</span>, <span itemProp="addressRegion">New Delhi</span> &middot; India
+          </span>
         </div>
       </footer>
 

@@ -252,12 +252,79 @@ export default function Home() {
       <Preloader />
       <Cursor />
       <Head>
-        <title>Shokeen Design Group - Architecture &amp; Interior Design Services</title>
+        <title>Shokeen Design Group — Architecture &amp; Interior Design | New Delhi</title>
+        <meta name="description" content="Shokeen Design Group is a leading architecture and interior design firm in New Delhi, India. 300+ completed projects across luxury hotels, resorts, restaurants, and commercial spaces since 2018." />
+        <meta name="keywords" content="architecture firm Delhi, interior design Delhi, hospitality interior design India, hotel interior design, restaurant interior design, Shokeen Design Group, interior designer Najafgarh, luxury interior design India" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.shokeendesigngroup.com/" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&family=Raleway+Dots&display=swap"
-          rel="stylesheet"
-        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shokeen Design Group" />
+        <meta property="og:title" content="Shokeen Design Group — Architecture & Interior Design | New Delhi" />
+        <meta property="og:description" content="Leading architecture and interior design firm in New Delhi. 300+ landmark projects across hospitality, F&B, and commercial spaces across India since 2018." />
+        <meta property="og:url" content="https://www.shokeendesigngroup.com/" />
+        <meta property="og:image" content="https://www.shokeendesigngroup.com/images/hero1.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Shokeen Design Group — Architecture & Interior Design | New Delhi" />
+        <meta name="twitter:description" content="Leading architecture and interior design firm in New Delhi. 300+ landmark projects across India since 2018." />
+        <meta name="twitter:image" content="https://www.shokeendesigngroup.com/images/hero1.jpg" />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": ["ArchitectureFirm", "InteriorDesigner", "LocalBusiness"],
+              "@id": "https://www.shokeendesigngroup.com/#organization",
+              "name": "Shokeen Design Group",
+              "alternateName": "SDG",
+              "description": "Architecture and Interior Design firm specialising in luxury hospitality, F&B, commercial and residential projects across India.",
+              "url": "https://www.shokeendesigngroup.com",
+              "logo": "https://www.shokeendesigngroup.com/images/logo.png",
+              "image": "https://www.shokeendesigngroup.com/images/hero1.jpg",
+              "foundingDate": "2018",
+              "numberOfEmployees": { "@type": "QuantitativeValue", "value": 25 },
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Main Najafgarh Bahadurgarh Road, Mahesh Garden",
+                "addressLocality": "Najafgarh",
+                "addressRegion": "New Delhi",
+                "postalCode": "110043",
+                "addressCountry": "IN"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "28.6100",
+                "longitude": "76.9800"
+              },
+              "telephone": "+919136207289",
+              "email": "info@shokeendesigngroup.com",
+              "sameAs": [
+                "https://linkedin.com/company/shokeen-design-group/",
+                "https://instagram.com/shokeendesigngroup/"
+              ],
+              "areaServed": { "@type": "Country", "name": "India" },
+              "founder": { "@type": "Person", "name": "Inderjeet Shokeen" },
+              "member": { "@type": "OrganizationRole", "member": { "@type": "Person", "name": "Ankit Shokeen", "jobTitle": "CEO" } }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.shokeendesigngroup.com/#website",
+              "url": "https://www.shokeendesigngroup.com",
+              "name": "Shokeen Design Group",
+              "publisher": { "@id": "https://www.shokeendesigngroup.com/#organization" }
+            }
+          ]
+        }) }} />
+
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&family=Raleway+Dots&display=swap" rel="stylesheet" />
       </Head>
 
       {/* NAV */}

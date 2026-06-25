@@ -78,7 +78,11 @@ const JOBS = [
 
 export default function Careers() {
   return (
-    <Layout title="Careers — Shokeen Design Group">
+    <Layout
+      title="Careers — Join Shokeen Design Group | Architecture & Interior Design Jobs Delhi"
+      description="Join Shokeen Design Group's 25-person design studio in New Delhi. We are hiring experienced architects, interior designers and project managers for luxury hospitality and commercial projects across India."
+      canonical="https://www.shokeendesigngroup.com/careers"
+    >
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/images/proj8.jpg')" }}></div>
         <div className="page-hero-overlay"></div>

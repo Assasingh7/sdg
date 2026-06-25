@@ -2,7 +2,11 @@ import Layout from '../components/Layout';
 
 export default function Clients() {
   return (
-    <Layout title="Our Clients — Shokeen Design Group">
+    <Layout
+      title="Our Clients — Shokeen Design Group | Hospitality & Commercial Design India"
+      description="Shokeen Design Group has designed spaces for leading hospitality groups, restaurant brands and commercial developers across India. Explore our client portfolio of 300+ completed projects."
+      canonical="https://www.shokeendesigngroup.com/clients"
+    >
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/images/proj7.jpg')" }}></div>
         <div className="page-hero-overlay"></div>

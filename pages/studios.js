@@ -24,7 +24,11 @@ export default function Studios() {
   }, []);
 
   return (
-    <Layout title="Our Studio — Shokeen Design Group">
+    <Layout
+      title="Our Studio — Shokeen Design Group | New Delhi Design Studio"
+      description="Meet the team behind Shokeen Design Group. Founded by Inderjeet Shokeen (Victor) in 2018, our New Delhi studio of 25 designers delivers award-winning architecture and interior design across India."
+      canonical="https://www.shokeendesigngroup.com/studios"
+    >
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/images/studio1.jpg')" }}></div>
         <div className="page-hero-overlay"></div>
