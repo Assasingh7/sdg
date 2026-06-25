@@ -69,7 +69,6 @@ export default function Layout({ title, description, canonical, ogImage, childre
         <meta name="twitter:description" content={pageDesc} />
         <meta name="twitter:image" content={pageImg} />
 
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
       </Head>
 
       <nav className="nav-wrap" id="mainNav" aria-label="Main navigation">
