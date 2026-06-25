@@ -100,12 +100,12 @@ export default function Layout({ title, description, canonical, ogImage, childre
       <footer itemScope itemType="https://schema.org/Organization">
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" itemProp="logo" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
+            <img src="/images/logo.png" alt="Shokeen Design Group" itemProp="logo" loading="lazy" decoding="async" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
             <p itemProp="description">Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
               <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn" itemProp="sameAs">in</a>
               <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer noopener" aria-label="Instagram" itemProp="sameAs">ig</a>
-              <a href="#" aria-label="Facebook">fb</a>
+              <a href="https://facebook.com/shokeendesigngroup" target="_blank" rel="noreferrer noopener" aria-label="Facebook">fb</a>
             </div>
           </div>
           <div className="footer-col">
@@ -129,6 +129,10 @@ export default function Layout({ title, description, canonical, ogImage, childre
         </div>
         <div className="footer-bottom">
           <span>&copy; 2026 Shokeen Design Group. All Rights Reserved.</span>
+          <div className="footer-legal">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms &amp; Conditions</a>
+          </div>
           <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
             <span itemProp="addressLocality">Najafgarh</span>, <span itemProp="addressRegion">New Delhi</span> &middot; India
           </span>

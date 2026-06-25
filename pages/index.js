@@ -330,7 +330,7 @@ export default function Home() {
       {/* NAV */}
       <nav className="nav-wrap" id="mainNav">
         <div className="nav-logo">
-          <a href="#">
+          <a href="/" aria-label="Shokeen Design Group – Home">
             <img src="/images/logo.png" alt="Shokeen Design Group" />
           </a>
         </div>
@@ -359,7 +359,8 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="hero">
+      <h1 className="sr-only">Shokeen Design Group — Architecture &amp; Interior Design, New Delhi India</h1>
+      <section className="hero" aria-label="Featured work">
         <div className="hero-panel hp1" id="interior" onClick={() => openCarousel('interior')}>
           <div className="hero-panel-bg"></div>
           <div className="hero-panel-overlay"></div>
@@ -414,7 +415,7 @@ export default function Home() {
             <p className="reveal-ready" data-delay="0.2">Founded by Inderjeet Shokeen (Victor) and led by CEO Ankit Shokeen, SDG&apos;s design philosophy is rooted in the belief that great spaces should not just look beautiful — they must feel right. Every project is an exploration of function, culture, and detail.</p>
             <p className="reveal-ready" data-delay="0.3">Our team of Architects and Interior Designers share one guiding ideology: that extraordinary design is never a coincidence — it is the result of conviction, collaboration, and an unwavering attention to the details that matter most.</p>
           </div>
-          <a href="#" className="j-cta reveal-ready" data-delay="0.35">Know More About Us &rarr;</a>
+          <a href="/studios" className="j-cta reveal-ready" data-delay="0.35">Know More About Us &rarr;</a>
         </div>
       </section>
 
@@ -445,7 +446,7 @@ export default function Home() {
             <p className="sh-eyebrow">Our Work</p>
             <h2 className="sh-title">Selected <em>Projects</em></h2>
           </div>
-          <a href="#" className="sh-link">View All Projects</a>
+          <a href="/projects" className="sh-link">View All Projects</a>
         </div>
         <div className="proj-filters">
           {[
@@ -611,12 +612,12 @@ export default function Home() {
       <footer>
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
+            <img src="/images/logo.png" alt="Shokeen Design Group" loading="lazy" decoding="async" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
             <p>Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
               <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
               <a href="https://instagram.com/shokeendesigngroup/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a>
-              <a href="#" aria-label="Facebook">fb</a>
+              <a href="https://facebook.com/shokeendesigngroup" target="_blank" rel="noreferrer noopener" aria-label="Facebook">fb</a>
             </div>
           </div>
           <div className="footer-col">
@@ -640,6 +641,10 @@ export default function Home() {
         </div>
         <div className="footer-bottom">
           <span>&copy; 2026 Shokeen Design Group. All Rights Reserved.</span>
+          <div className="footer-legal">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms &amp; Conditions</a>
+          </div>
           <span>Najafgarh, New Delhi &middot; India</span>
         </div>
       </footer>
