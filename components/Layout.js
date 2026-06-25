@@ -99,7 +99,7 @@ export default function Layout({ title, description, canonical, ogImage, childre
       <footer itemScope itemType="https://schema.org/Organization">
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" itemProp="logo" loading="lazy" decoding="async" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
+            <img src="/images/logo.png" alt="Shokeen Design Group" itemProp="logo" loading="lazy" decoding="async" style={{ height: '30px', width: 'auto', display: 'block', marginBottom: '16px' }} />
             <p itemProp="description">Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
               <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn" itemProp="sameAs">in</a>

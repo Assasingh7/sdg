@@ -611,7 +611,7 @@ export default function Home() {
       <footer>
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/images/logo.png" alt="Shokeen Design Group" loading="lazy" decoding="async" style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }} />
+            <img src="/images/logo.png" alt="Shokeen Design Group" loading="lazy" decoding="async" style={{ height: '30px', width: 'auto', display: 'block', marginBottom: '16px' }} />
             <p>Architecture &amp; Interior Design services for hospitality, residential, and commercial projects across India since 2018.</p>
             <div className="footer-social">
               <a href="https://linkedin.com/company/shokeen-design-group/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
